@@ -33,5 +33,70 @@ export const qiitaDummydatas: QiitaPostType[] = [
 			profile_image_url:
 				'https://s3-ap-northeast-1.amazonaws.com/qiita-image-store/0/358498/0ac87cbbf85435a5c71139278e353a7d0da8679d/x_large.png?1628259063'
 		}
+	},
+	{
+		id: '1',
+		title: 'Dummy Title 1',
+		url: 'https://qiita.com/nemutas/items/066f11f720e597c474a8',
+		created_at: '2021-07-20T00:00:00+09:00',
+		likes_count: 5,
+		tags: [{ name: 'TypeScript' }, { name: 'React' }, { name: 'FirebaseAuth' }, { name: 'Recoil' }],
+		user: {
+			id: 'nemutas',
+			profile_image_url:
+				'https://s3-ap-northeast-1.amazonaws.com/qiita-image-store/0/358498/0ac87cbbf85435a5c71139278e353a7d0da8679d/x_large.png?1628259063'
+		}
+	},
+	{
+		id: '2',
+		title: 'Dummy Title 2',
+		url: 'https://qiita.com/nemutas/items/066f11f720e597c474a8',
+		created_at: '2021-07-19T00:00:00+09:00',
+		likes_count: 5,
+		tags: [{ name: 'TypeScript' }, { name: 'React' }, { name: 'FirebaseAuth' }, { name: 'Recoil' }],
+		user: {
+			id: 'nemutas',
+			profile_image_url:
+				'https://s3-ap-northeast-1.amazonaws.com/qiita-image-store/0/358498/0ac87cbbf85435a5c71139278e353a7d0da8679d/x_large.png?1628259063'
+		}
+	},
+	{
+		id: '3',
+		title: 'Dummy Title 3',
+		url: 'https://qiita.com/nemutas/items/066f11f720e597c474a8',
+		created_at: '2021-07-18T00:00:00+09:00',
+		likes_count: 5,
+		tags: [{ name: 'TypeScript' }, { name: 'React' }, { name: 'FirebaseAuth' }, { name: 'Recoil' }],
+		user: {
+			id: 'nemutas',
+			profile_image_url:
+				'https://s3-ap-northeast-1.amazonaws.com/qiita-image-store/0/358498/0ac87cbbf85435a5c71139278e353a7d0da8679d/x_large.png?1628259063'
+		}
+	},
+	{
+		id: '4',
+		title: 'Dummy Title 4',
+		url: 'https://qiita.com/nemutas/items/066f11f720e597c474a8',
+		created_at: '2021-07-17T00:00:00+09:00',
+		likes_count: 5,
+		tags: [{ name: 'TypeScript' }, { name: 'React' }, { name: 'FirebaseAuth' }, { name: 'Recoil' }],
+		user: {
+			id: 'nemutas',
+			profile_image_url:
+				'https://s3-ap-northeast-1.amazonaws.com/qiita-image-store/0/358498/0ac87cbbf85435a5c71139278e353a7d0da8679d/x_large.png?1628259063'
+		}
+	},
+	{
+		id: '5',
+		title: 'Dummy Title 5',
+		url: 'https://qiita.com/nemutas/items/066f11f720e597c474a8',
+		created_at: '2021-07-16T00:00:00+09:00',
+		likes_count: 5,
+		tags: [{ name: 'TypeScript' }, { name: 'React' }, { name: 'FirebaseAuth' }, { name: 'Recoil' }],
+		user: {
+			id: 'nemutas',
+			profile_image_url:
+				'https://s3-ap-northeast-1.amazonaws.com/qiita-image-store/0/358498/0ac87cbbf85435a5c71139278e353a7d0da8679d/x_large.png?1628259063'
+		}
 	}
 ]

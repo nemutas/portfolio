@@ -1,45 +1,58 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { VFC } from 'react';
+import React, { useEffect, useState, VFC } from 'react';
 import { useRecoilValue } from 'recoil';
-import useSWR from 'swr';
 import { css } from '@emotion/css';
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import { fetchQiitaPosts } from '../lib/fetch';
-import { colorThemeState } from '../lib/store';
-import { QiitaPostType } from '../lib/types';
-import { SubText } from './atoms/SubText';
-import { DesignListItem3 } from './molecules/DesignListItem3';
+import { ColorThemeType } from '../../assets/colorTheme';
+import { colorThemeState } from '../../lib/store';
+import { QiitaPostType } from '../../lib/types';
+import { SubText } from '../atoms/SubText';
+import { DesignListItem3 } from '../molecules/DesignListItem3';
+import { QiitaTagFilter } from './QiitaTagFilter';
 
 type PropsType = {
 	posts: QiitaPostType[]
 }
 
-// const fetcher = (url: string) =>
-// 	axios
-// 		.get<QiitaPostType[]>(url, {
-// 			headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_QIITA_ACCESS_TOKEN!}` }
-// 		})
-// 		.then(res => res.data)
-
-const fetcher = () => fetchQiitaPosts()
-
 export const QiitaPosts: VFC<PropsType> = ({ posts }) => {
-	// const { data, error } = useSWR('fetch-qiita-posts', fetcher, {
-	// 	initialData: posts,
-	// 	revalidateOnMount: true
-	// })
+	// Tag一覧の作成
+	const tagsSet = new Set<string>()
+	posts.forEach(post => post.tags.forEach(tag => tagsSet.add(tag.name)))
+	// Tagの選択状態
+	const selectedTagsObject: { [key: string]: boolean } = {}
+	tagsSet.forEach(tag => (selectedTagsObject[tag] = true))
+	const [selectedTags, setSelectedTags] = useState(selectedTagsObject)
 
-	// if (error || !data) {
-	// 	return <>記事を取得出来ませんでした</>
-	// }
+	/**
+	 * 記事に選択しているTagがあるか
+	 */
+	const selectedPost = (post: QiitaPostType) => {
+		let result = false
+		post.tags.forEach(tag => {
+			if (selectedTags[tag.name]) {
+				result = true
+				return
+			}
+		})
+		return result
+	}
 
 	return (
-		<div>
-			{posts.map(post => (
+		<div className={sContainer}>
+			<QiitaTagFilter selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
+
+			{/* {posts.map(post => (
 				<DesignListItem3 key={post.id} contents={<QiitaPostLink post={post} />} />
-			))}
+			))} */}
+			<div className={sPostsContainer}>
+				{posts.map(post => (
+					<div key={post.id}>
+						{selectedPost(post) && <DesignListItem3 contents={<QiitaPostLink post={post} />} />}
+					</div>
+				))}
+			</div>
 		</div>
 	)
 }
@@ -56,10 +69,14 @@ const QiitaPostLink: VFC<{ post: QiitaPostType }> = ({ post }) => {
 
 const QiitaPostContents: VFC<{ post: QiitaPostType }> = ({ post }) => {
 	const colorTheme = useRecoilValue(colorThemeState)
-	const classes = useStyles({ textColor: colorTheme.base })
+	const [isHover, setIsHover] = useState(false)
+	const classes = useStyles({ colorTheme })
 
 	return (
-		<div className={sGridContainer}>
+		<div
+			className={sGridContainer}
+			onMouseOver={() => setIsHover(true)}
+			onMouseOut={() => setIsHover(false)}>
 			{/* row 1 */}
 			<div className={sMetaGridContainer}>
 				<div className={sMetaContainer}>
@@ -78,11 +95,16 @@ const QiitaPostContents: VFC<{ post: QiitaPostType }> = ({ post }) => {
 			</div>
 			{/* row 2 col 1 */}
 			<div className={sIconGridContainer}>
-				<div className={sIconContainer(colorTheme.textAccent)}>
-					<Typography className={classes.LGTM} variant="button">
+				<div
+					className={
+						isHover
+							? sHoveredIconContainer(colorTheme.textAccent)
+							: sIconContainer(colorTheme.textAccent)
+					}>
+					<Typography className={isHover ? classes.hoveredLGTM : classes.LGTM} variant="button">
 						LGTM
 					</Typography>
-					<Typography className={classes.LGTM} variant="button">
+					<Typography className={isHover ? classes.hoveredLGTM : classes.LGTM} variant="button">
 						{post.likes_count}
 					</Typography>
 				</div>
@@ -104,6 +126,36 @@ const QiitaPostContents: VFC<{ post: QiitaPostType }> = ({ post }) => {
 
 // ==============================================
 // styles
+
+const useStyles = makeStyles<Theme, { colorTheme: ColorThemeType }>((theme: Theme) =>
+	createStyles({
+		LGTM: {
+			color: ({ colorTheme }) => colorTheme.textAccent,
+			lineHeight: 0,
+			fontSize: '1.1rem'
+		},
+		hoveredLGTM: {
+			color: ({ colorTheme }) => colorTheme.base,
+			lineHeight: 0,
+			fontSize: '1.1rem'
+		}
+	})
+)
+
+// ----------------------------------------------
+
+const sContainer = css`
+	display: grid;
+	flex-direction: row;
+	grid-template-rows: auto 1fr;
+	width: 100%;
+`
+
+const sPostsContainer = css`
+	overflow-y: auto;
+	max-height: calc(100vh - 220px);
+	padding-right: 20px;
+`
 
 // ----------------------------------------------
 // frame grid
@@ -131,6 +183,7 @@ const sIconGridContainer = css`
 const sMetaContainer = css`
 	display: flex;
 	align-items: center;
+	position: relative;
 `
 
 const sAvatarContainer = css`
@@ -157,6 +210,11 @@ const sIconContainer = (color: string) => css`
 	height: 70px;
 	width: 70px;
 	border-radius: 9999px;
+	border: 2px solid ${color};
+`
+
+const sHoveredIconContainer = (color: string) => css`
+	${sIconContainer(color)}
 	background-color: ${color};
 `
 
@@ -168,13 +226,3 @@ const sTagContainer = css`
 	align-items: center;
 	grid-gap: 10px;
 `
-
-const useStyles = makeStyles<Theme, { textColor: string }>((theme: Theme) =>
-	createStyles({
-		LGTM: {
-			color: ({ textColor }) => textColor,
-			lineHeight: 0,
-			fontSize: '1.1rem'
-		}
-	})
-)
