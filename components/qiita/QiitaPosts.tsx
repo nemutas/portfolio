@@ -3,35 +3,30 @@ import Link from 'next/link';
 import React, { useEffect, useState, VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
-import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import { createStyles, Divider, makeStyles, Theme, Typography } from '@material-ui/core';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import { ColorThemeType } from '../../assets/colorTheme';
 import { colorThemeState } from '../../lib/store';
-import { QiitaPostType } from '../../lib/types';
+import { QiitaPostType, QiitaTagsType } from '../../lib/types';
 import { SubText } from '../atoms/SubText';
 import { DesignListItem3 } from '../molecules/DesignListItem3';
 import { QiitaTagFilter } from './QiitaTagFilter';
 
 type PropsType = {
 	posts: QiitaPostType[]
+	tags: QiitaTagsType
 }
 
-export const QiitaPosts: VFC<PropsType> = ({ posts }) => {
-	// Tag一覧の作成
-	const tagsSet = new Set<string>()
-	posts.forEach(post => post.tags.forEach(tag => tagsSet.add(tag.name)))
-	// Tagの選択状態
-	const selectedTagsObject: { [key: string]: boolean } = {}
-	tagsSet.forEach(tag => (selectedTagsObject[tag] = true))
-	const [selectedTags, setSelectedTags] = useState(selectedTagsObject)
+export const QiitaPosts: VFC<PropsType> = ({ posts, tags }) => {
+	const [selectedTags, setSelectedTags] = useState(tags)
+	const colorTheme = useRecoilValue(colorThemeState)
+	const classes = useStyles({ colorTheme })
 
-	/**
-	 * 記事に選択しているTagがあるか
-	 */
+	/** 対象の記事に、選択しているTagがあるか */
 	const selectedPost = (post: QiitaPostType) => {
 		let result = false
 		post.tags.forEach(tag => {
-			if (selectedTags[tag.name]) {
+			if (selectedTags[tag.name].selected) {
 				result = true
 				return
 			}
@@ -41,17 +36,16 @@ export const QiitaPosts: VFC<PropsType> = ({ posts }) => {
 
 	return (
 		<div className={sContainer}>
-			<QiitaTagFilter selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
-
-			{/* {posts.map(post => (
-				<DesignListItem3 key={post.id} contents={<QiitaPostLink post={post} />} />
-			))} */}
 			<div className={sPostsContainer}>
 				{posts.map(post => (
 					<div key={post.id}>
 						{selectedPost(post) && <DesignListItem3 contents={<QiitaPostLink post={post} />} />}
 					</div>
 				))}
+			</div>
+			<div className={sFilterContainer}>
+				<Divider className={classes.divider} />
+				<QiitaTagFilter selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
 			</div>
 		</div>
 	)
@@ -138,6 +132,9 @@ const useStyles = makeStyles<Theme, { colorTheme: ColorThemeType }>((theme: Them
 			color: ({ colorTheme }) => colorTheme.base,
 			lineHeight: 0,
 			fontSize: '1.1rem'
+		},
+		divider: {
+			marginBottom: theme.spacing(2)
 		}
 	})
 )
@@ -147,15 +144,17 @@ const useStyles = makeStyles<Theme, { colorTheme: ColorThemeType }>((theme: Them
 const sContainer = css`
 	display: grid;
 	flex-direction: row;
-	grid-template-rows: auto 1fr;
+	grid-template-rows: 1fr auto;
 	width: 100%;
+	height: calc(100vh - 180px);
 `
 
 const sPostsContainer = css`
 	overflow-y: auto;
-	max-height: calc(100vh - 220px);
 	padding-right: 20px;
 `
+
+const sFilterContainer = css``
 
 // ----------------------------------------------
 // frame grid

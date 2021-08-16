@@ -2,11 +2,10 @@ import React, { memo, VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { css, cx } from '@emotion/css';
 import { Divider, Typography } from '@material-ui/core';
-import { skillGroups, SkillGroupType, SkillType } from '../assets/skill';
-import { colorThemeState } from '../lib/store';
-import { ContentTitle } from './atoms/ContentTitle';
-import { DesignListItem } from './molecules/DesignListItem';
-import { DesignListItem2 } from './molecules/DesignListItem2';
+import { skillGroups, SkillGroupType, SkillType } from '../../assets/skill';
+import { colorThemeState } from '../../lib/store';
+import { ContentTitle } from '../atoms/ContentTitle';
+import { DesignListItem2 } from '../molecules/DesignListItem2';
 
 export const Skill: VFC = memo(() => {
 	return (

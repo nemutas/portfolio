@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState, VFC } from 'react';
 import { css } from '@emotion/css';
 import { pageSummary } from '../assets/pageSummary';
 import { LinkItem } from '../components/atoms/LinkItem';
-import { Career } from '../components/Career';
 import { PageLayout } from '../components/PageLayout';
-import { Philosophy } from '../components/Philosophy';
-import { Skill } from '../components/Skill';
+import { Career } from '../components/profile/Career';
+import { Philosophy } from '../components/profile/Philosophy';
+import { Skill } from '../components/profile/Skill';
 
 const Profile: VFC = () => {
 	const [activeNav, setActiveNav] = useState<'Career' | 'Skill' | 'Philosophy'>('Career')

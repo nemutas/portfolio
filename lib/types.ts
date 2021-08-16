@@ -10,3 +10,10 @@ export type QiitaPostType = {
 		profile_image_url: string
 	}
 }
+
+export type QiitaTagsType = {
+	[name: string]: {
+		count: number
+		selected: boolean
+	}
+}

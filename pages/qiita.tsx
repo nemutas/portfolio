@@ -6,7 +6,7 @@ import { pageSummary } from '../assets/pageSummary';
 import { PageLayout } from '../components/PageLayout';
 import { QiitaPosts } from '../components/qiita/QiitaPosts';
 import { fetchQiitaPosts } from '../lib/fetch';
-import { QiitaPostType } from '../lib/types';
+import { QiitaPostType, QiitaTagsType } from '../lib/types';
 
 // const fetcher = (url: string) =>
 // 	axios
@@ -15,9 +15,9 @@ import { QiitaPostType } from '../lib/types';
 // 		})
 // 		.then(res => res.data)
 
-const fetcher = () => fetchQiitaPosts()
+// const fetcher = () => fetchQiitaPosts()
 
-const Qiita: VFC<{ posts: QiitaPostType[] }> = ({ posts }) => {
+const Qiita: VFC<{ posts: QiitaPostType[]; tags: QiitaTagsType }> = ({ posts, tags }) => {
 	const summary = pageSummary.qiita
 
 	// const { data, error } = useSWR('fetch-qiita-posts', fetcher, {
@@ -32,7 +32,7 @@ const Qiita: VFC<{ posts: QiitaPostType[] }> = ({ posts }) => {
 	return (
 		<PageLayout title={summary.title} description={summary.description}>
 			<div className={sContainer}>
-				<QiitaPosts posts={posts} />
+				<QiitaPosts posts={posts} tags={tags} />
 			</div>
 		</PageLayout>
 	)
@@ -41,11 +41,10 @@ const Qiita: VFC<{ posts: QiitaPostType[] }> = ({ posts }) => {
 export default Qiita
 
 export const getStaticProps: GetStaticProps = async () => {
-	// const posts = await fetchQiitaPosts()
-	const posts = qiitaDummydatas
+	const { posts, tags } = await fetchQiitaPosts()
 
 	return {
-		props: { posts }
+		props: { posts, tags }
 	}
 }
 
@@ -54,6 +53,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const sContainer = css`
 	width: 100%;
+	height: 100%;
 	padding: 30px;
-	padding-bottom: 0;
 `

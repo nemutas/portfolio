@@ -68,7 +68,7 @@ const sContainer = (theme: ColorThemeType) => css`
 	display: grid;
 	grid-template-columns: auto 1fr auto;
 	width: 100%;
-	min-height: 100vh;
+	height: 100vh;
 	border: 15px solid ${theme.main};
 	background-color: ${theme.base};
 `

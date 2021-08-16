@@ -1,32 +1,61 @@
-import React, { VFC } from 'react';
+import React, { useState, VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import { ColorThemeType } from '../../assets/colorTheme';
 import { colorThemeState } from '../../lib/store';
+import { QiitaTagsType } from '../../lib/types';
+import { ContentText } from '../atoms/ContentText';
 
 type PropsType = {
-	selectedTags: { [key: string]: boolean }
-	setSelectedTags: React.Dispatch<
-		React.SetStateAction<{
-			[key: string]: boolean
-		}>
-	>
+	selectedTags: QiitaTagsType
+	setSelectedTags: React.Dispatch<React.SetStateAction<QiitaTagsType>>
 }
 
 export const QiitaTagFilter: VFC<PropsType> = ({ selectedTags, setSelectedTags }) => {
-	const tags = Object.keys(selectedTags)
+	const tagNames = Object.keys(selectedTags)
+	const [selectedAllTags, setSelectedAllTags] = useState(true)
+
+	const toggleSelectHandler = (tag: string) => {
+		setSelectedTags({
+			...selectedTags,
+			[tag]: { ...selectedTags[tag], selected: !selectedTags[tag].selected }
+		})
+	}
+
+	const selectAllTagsHandler = () => {
+		const selected = !selectedAllTags
+		setSelectedAllTags(selected)
+		tagNames.forEach(tag => (selectedTags[tag].selected = selected))
+		setSelectedTags({ ...selectedTags })
+	}
+
+	const sortedTags: { name: string; count: number }[] = []
+	tagNames.forEach(tag => sortedTags.push({ name: tag, count: selectedTags[tag].count }))
+	sortedTags.sort((a, b) => b.count - a.count)
 
 	return (
-		<div className={sTagListContainer}>
-			{tags.map((tag, i) => (
+		<div className={sContainer}>
+			<div className={sTagFilterContainer}>
+				<LocalOfferIcon />
+				<ContentText text="Tag Selector" />
 				<QiitaTag
-					key={i}
-					name={tag}
-					selected={selectedTags[tag]}
-					clickHandler={() => setSelectedTags({ ...selectedTags, [tag]: !selectedTags[tag] })}
+					name={selectedAllTags ? 'すべての選択を解除する' : 'すべて選択する'}
+					selected={!selectedAllTags}
+					clickHandler={selectAllTagsHandler}
 				/>
-			))}
+			</div>
+			<div className={sTagListContainer}>
+				{sortedTags.map((tag, i) => (
+					<QiitaTag
+						key={i}
+						name={tag.name}
+						selected={selectedTags[tag.name].selected}
+						clickHandler={() => toggleSelectHandler(tag.name)}
+					/>
+				))}
+			</div>
 		</div>
 	)
 }
@@ -72,10 +101,24 @@ const useStyles = makeStyles<Theme, { colorTheme: ColorThemeType }>((theme: Them
 	})
 )
 
-const sTagListContainer = css`
+const sContainer = css`
+	display: grid;
+	flex-direction: row;
+	grid-template-rows: auto auto;
+	grid-gap: 10px;
+`
+
+const sTagFilterContainer = css`
 	display: flex;
 	grid-gap: 10px;
-	margin-bottom: 30px;
+	align-items: center;
+`
+
+const sTagListContainer = css`
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 10px;
+	row-gap: 5px;
 `
 
 const sTagChip = (color: string) => css`

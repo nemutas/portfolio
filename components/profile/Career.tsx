@@ -1,12 +1,12 @@
 import React, { memo, VFC } from 'react';
 import { css } from '@emotion/css';
 import { Divider, Typography } from '@material-ui/core';
-import { careers, CareerType } from '../assets/career';
-import { ContentText } from './atoms/ContentText';
-import { ContentTitle } from './atoms/ContentTitle';
-import { CustomDivider } from './atoms/CustomDivider';
-import { DesignListItem } from './molecules/DesignListItem';
-import { DesignListItem2 } from './molecules/DesignListItem2';
+import { careers, CareerType } from '../../assets/career';
+import { ContentText } from '../atoms/ContentText';
+import { ContentTitle } from '../atoms/ContentTitle';
+import { CustomDivider } from '../atoms/CustomDivider';
+import { DesignListItem } from '../molecules/DesignListItem';
+import { DesignListItem2 } from '../molecules/DesignListItem2';
 
 export const Career: VFC = memo(() => {
 	return (

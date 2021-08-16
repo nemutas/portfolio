@@ -1,10 +1,10 @@
 import React, { memo, VFC } from 'react';
 import { css } from '@emotion/css';
 import { Divider } from '@material-ui/core';
-import { philosophies, PhilosophyType } from '../assets/philosophy';
-import { ContentText } from './atoms/ContentText';
-import { ContentTitle } from './atoms/ContentTitle';
-import { DesignListItem2 } from './molecules/DesignListItem2';
+import { philosophies, PhilosophyType } from '../../assets/philosophy';
+import { ContentText } from '../atoms/ContentText';
+import { ContentTitle } from '../atoms/ContentTitle';
+import { DesignListItem2 } from '../molecules/DesignListItem2';
 
 export const Philosophy: VFC = memo(() => {
 	return (
