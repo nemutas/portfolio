@@ -2,7 +2,7 @@ import Head from 'next/head';
 import React, { VFC } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
-import { ColorThemeType } from '../assets/colorTheme';
+import { ColorThemeType } from '../datas/colorTheme';
 import { activePageNameState, colorThemeState } from '../lib/store';
 import { LinkItem } from './atoms/LinkItem';
 import { FrameLines } from './FrameLines';
@@ -91,7 +91,7 @@ const sNavigator = css`
 // main
 
 const sMainContainer = css`
-	/* flex: 1 1 auto; */
+	height: 100%;
 `
 
 const sLineHT = (theme: ColorThemeType) => css`

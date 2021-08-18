@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
 import { createStyles, Divider, makeStyles, Theme, Typography } from '@material-ui/core';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import { ColorThemeType } from '../../assets/colorTheme';
+import { ColorThemeType } from '../../datas/colorTheme';
 import { colorThemeState } from '../../lib/store';
 import { QiitaPostType, QiitaTagsType } from '../../lib/types';
 import { SubText } from '../atoms/SubText';
@@ -141,12 +141,18 @@ const useStyles = makeStyles<Theme, { colorTheme: ColorThemeType }>((theme: Them
 
 // ----------------------------------------------
 
+const sContainerOya = css`
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.2);
+`
+
 const sContainer = css`
 	display: grid;
-	flex-direction: row;
 	grid-template-rows: 1fr auto;
 	width: 100%;
 	height: calc(100vh - 180px);
+	/* height: 100%; */
 `
 
 const sPostsContainer = css`

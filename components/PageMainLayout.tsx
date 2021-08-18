@@ -27,8 +27,8 @@ export const PageMainLayout: VFC<PropsType> = props => {
 
 const sContainer = css`
 	display: grid;
-	flex-direction: row;
 	grid-template-rows: 90px 1fr;
+	height: 100%;
 `
 
 const sMainContainer = css`

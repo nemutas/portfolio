@@ -1,7 +1,7 @@
 import React, { memo, VFC } from 'react';
 import { css } from '@emotion/css';
 import { Divider, Typography } from '@material-ui/core';
-import { careers, CareerType } from '../../assets/career';
+import { careers, CareerType } from '../../datas/career';
 import { ContentText } from '../atoms/ContentText';
 import { ContentTitle } from '../atoms/ContentTitle';
 import { CustomDivider } from '../atoms/CustomDivider';

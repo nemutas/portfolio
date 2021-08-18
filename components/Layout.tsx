@@ -2,7 +2,7 @@ import Head from 'next/head';
 import React, { VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
-import { ColorThemeType } from '../assets/colorTheme';
+import { ColorThemeType } from '../datas/colorTheme';
 import { colorThemeState } from '../lib/store';
 import { FrameLines } from './FrameLines';
 

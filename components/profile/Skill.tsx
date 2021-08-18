@@ -2,7 +2,7 @@ import React, { memo, VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { css, cx } from '@emotion/css';
 import { Divider, Typography } from '@material-ui/core';
-import { skillGroups, SkillGroupType, SkillType } from '../../assets/skill';
+import { skillGroups, SkillGroupType, SkillType } from '../../datas/skill';
 import { colorThemeState } from '../../lib/store';
 import { ContentTitle } from '../atoms/ContentTitle';
 import { DesignListItem2 } from '../molecules/DesignListItem2';

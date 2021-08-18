@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState, VFC } from 'react';
 import { css } from '@emotion/css';
-import { pageSummary } from '../assets/pageSummary';
 import { LinkItem } from '../components/atoms/LinkItem';
 import { PageLayout } from '../components/PageLayout';
 import { Career } from '../components/profile/Career';
 import { Philosophy } from '../components/profile/Philosophy';
 import { Skill } from '../components/profile/Skill';
+import { pageSummary } from '../datas/pageSummary';
 
 const Profile: VFC = () => {
 	const [activeNav, setActiveNav] = useState<'Career' | 'Skill' | 'Philosophy'>('Career')

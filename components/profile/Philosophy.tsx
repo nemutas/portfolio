@@ -1,7 +1,7 @@
 import React, { memo, VFC } from 'react';
 import { css } from '@emotion/css';
 import { Divider } from '@material-ui/core';
-import { philosophies, PhilosophyType } from '../../assets/philosophy';
+import { philosophies, PhilosophyType } from '../../datas/philosophy';
 import { ContentText } from '../atoms/ContentText';
 import { ContentTitle } from '../atoms/ContentTitle';
 import { DesignListItem2 } from '../molecules/DesignListItem2';

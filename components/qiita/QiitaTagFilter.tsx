@@ -3,10 +3,9 @@ import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import { ColorThemeType } from '../../assets/colorTheme';
+import { ColorThemeType } from '../../datas/colorTheme';
 import { colorThemeState } from '../../lib/store';
 import { QiitaTagsType } from '../../lib/types';
-import { ContentText } from '../atoms/ContentText';
 
 type PropsType = {
 	selectedTags: QiitaTagsType
@@ -39,9 +38,8 @@ export const QiitaTagFilter: VFC<PropsType> = ({ selectedTags, setSelectedTags }
 		<div className={sContainer}>
 			<div className={sTagFilterContainer}>
 				<LocalOfferIcon />
-				<ContentText text="Tag Selector" />
 				<QiitaTag
-					name={selectedAllTags ? 'すべての選択を解除する' : 'すべて選択する'}
+					name={selectedAllTags ? 'すべてのタグを解除する' : 'すべてのタグを選択する'}
 					selected={!selectedAllTags}
 					clickHandler={selectAllTagsHandler}
 				/>

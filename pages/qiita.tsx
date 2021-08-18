@@ -1,10 +1,10 @@
 import { GetStaticProps } from 'next';
 import React, { VFC } from 'react';
 import { css } from '@emotion/css';
-import { qiitaDummydatas } from '../assets/dummyData';
-import { pageSummary } from '../assets/pageSummary';
 import { PageLayout } from '../components/PageLayout';
 import { QiitaPosts } from '../components/qiita/QiitaPosts';
+import { qiitaDummydatas } from '../datas/dummyData';
+import { pageSummary } from '../datas/pageSummary';
 import { fetchQiitaPosts } from '../lib/fetch';
 import { QiitaPostType, QiitaTagsType } from '../lib/types';
 

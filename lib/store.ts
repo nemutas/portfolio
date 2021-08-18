@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { colorThemeName, ColorThemeType, getColorTheme } from '../assets/colorTheme';
+import { colorThemeName, ColorThemeType, getColorTheme } from '../datas/colorTheme';
 
 export const colorThemeState = atom<ColorThemeType>({
 	key: 'colorTheme',

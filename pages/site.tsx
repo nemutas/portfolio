@@ -1,6 +1,6 @@
 import { VFC } from 'react';
-import { pageSummary } from '../assets/pageSummary';
 import { PageLayout } from '../components/PageLayout';
+import { pageSummary } from '../datas/pageSummary';
 
 const Site: VFC = () => {
 	const summary = pageSummary.site
