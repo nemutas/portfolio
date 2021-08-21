@@ -6,7 +6,6 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import { ColorThemeType } from '../../datas/colorTheme';
 import { colorThemeState } from '../../lib/store';
 import { QiitaTagsType } from '../../lib/types';
-import { VerticalScrollLayout } from '../VerticalScrollLayout';
 
 type PropsType = {
 	selectedTags: QiitaTagsType
@@ -36,28 +35,26 @@ export const QiitaTagFilter: VFC<PropsType> = ({ selectedTags, setSelectedTags }
 	sortedTags.sort((a, b) => b.count - a.count)
 
 	return (
-		<VerticalScrollLayout id="qiita-tag-filter">
-			<div className={sContainer}>
-				<div className={sTagFilterContainer}>
-					<LocalOfferIcon />
-					<QiitaTag
-						name={selectedAllTags ? 'すべてのタグを解除する' : 'すべてのタグを選択する'}
-						selected={!selectedAllTags}
-						clickHandler={selectAllTagsHandler}
-					/>
-				</div>
-				<div className={sTagListContainer}>
-					{sortedTags.map((tag, i) => (
-						<QiitaTag
-							key={i}
-							name={tag.name}
-							selected={selectedTags[tag.name].selected}
-							clickHandler={() => toggleSelectHandler(tag.name)}
-						/>
-					))}
-				</div>
+		<div className={sContainer}>
+			<div className={sTagFilterContainer}>
+				<LocalOfferIcon />
+				<QiitaTag
+					name={selectedAllTags ? 'すべてのタグを解除する' : 'すべてのタグを選択する'}
+					selected={!selectedAllTags}
+					clickHandler={selectAllTagsHandler}
+				/>
 			</div>
-		</VerticalScrollLayout>
+			<div className={sTagListContainer}>
+				{sortedTags.map((tag, i) => (
+					<QiitaTag
+						key={i}
+						name={tag.name}
+						selected={selectedTags[tag.name].selected}
+						clickHandler={() => toggleSelectHandler(tag.name)}
+					/>
+				))}
+			</div>
+		</div>
 	)
 }
 
@@ -110,15 +107,15 @@ const sContainer = css`
 `
 
 const sTagFilterContainer = css`
-	display: grid;
-	grid-template-columns: auto 1fr;
+	display: flex;
 	grid-gap: 10px;
 	align-items: center;
 `
 
 const sTagListContainer = css`
 	display: flex;
-	flex-direction: column;
+	flex-wrap: wrap;
+	column-gap: 10px;
 	row-gap: 5px;
 `
 
@@ -126,7 +123,6 @@ const sTagChip = (color: string) => css`
 	border-radius: 9999px;
 	border: 2px solid ${color};
 	padding: 0px 12px;
-	margin-right: auto;
 	&:hover {
 		cursor: pointer;
 	}

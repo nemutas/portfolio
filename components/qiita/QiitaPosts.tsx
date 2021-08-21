@@ -10,6 +10,7 @@ import { colorThemeState } from '../../lib/store';
 import { QiitaPostType, QiitaTagsType } from '../../lib/types';
 import { SubText } from '../atoms/SubText';
 import { DesignListItem3 } from '../molecules/DesignListItem3';
+import { VerticalScrollLayout } from '../VerticalScrollLayout';
 import { QiitaTagFilter } from './QiitaTagFilter';
 
 type PropsType = {
@@ -36,17 +37,17 @@ export const QiitaPosts: VFC<PropsType> = ({ posts, tags }) => {
 
 	return (
 		<div className={sContainer}>
-			<div className={sPostsContainer}>
+			<div>
+				<QiitaTagFilter selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
+			</div>
+			<Divider orientation="vertical" />
+			<VerticalScrollLayout>
 				{posts.map(post => (
 					<div key={post.id}>
 						{selectedPost(post) && <DesignListItem3 contents={<QiitaPostLink post={post} />} />}
 					</div>
 				))}
-			</div>
-			<div className={sFilterContainer}>
-				<Divider className={classes.divider} />
-				<QiitaTagFilter selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
-			</div>
+			</VerticalScrollLayout>
 		</div>
 	)
 }
@@ -141,26 +142,13 @@ const useStyles = makeStyles<Theme, { colorTheme: ColorThemeType }>((theme: Them
 
 // ----------------------------------------------
 
-const sContainerOya = css`
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.2);
-`
-
 const sContainer = css`
 	display: grid;
-	grid-template-rows: 1fr auto;
+	grid-template-columns: auto auto 1fr;
+	column-gap: 20px;
 	width: 100%;
 	height: calc(100vh - 180px);
-	/* height: 100%; */
 `
-
-const sPostsContainer = css`
-	overflow-y: auto;
-	padding-right: 20px;
-`
-
-const sFilterContainer = css``
 
 // ----------------------------------------------
 // frame grid

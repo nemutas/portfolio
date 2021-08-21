@@ -5,6 +5,7 @@ import { PageLayout } from '../components/PageLayout';
 import { Career } from '../components/profile/Career';
 import { Philosophy } from '../components/profile/Philosophy';
 import { Skill } from '../components/profile/Skill';
+import { VerticalScrollLayout } from '../components/VerticalScrollLayout';
 import { pageSummary } from '../datas/pageSummary';
 
 const Profile: VFC = () => {
@@ -47,7 +48,7 @@ const Profile: VFC = () => {
 				</div>
 
 				{/* contents */}
-				<div id="profile-container" className={sContentsContainer}>
+				<VerticalScrollLayout id="profile-container" offsetHeight={250}>
 					<a id="career"></a>
 					<Career />
 					<div className={sSectionSpan}></div>
@@ -58,7 +59,7 @@ const Profile: VFC = () => {
 
 					<a id="philosophy"></a>
 					<Philosophy />
-				</div>
+				</VerticalScrollLayout>
 			</div>
 		</PageLayout>
 	)
@@ -81,12 +82,6 @@ const sNavContainer = css`
 	column-gap: 50px;
 	justify-content: flex-start;
 	align-items: center;
-`
-
-const sContentsContainer = css`
-	max-height: calc(100vh - 250px);
-	overflow-y: auto;
-	scroll-behavior: smooth;
 `
 
 const sSectionSpan = css`

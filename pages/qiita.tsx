@@ -8,26 +8,8 @@ import { pageSummary } from '../datas/pageSummary';
 import { fetchQiitaPosts } from '../lib/fetch';
 import { QiitaPostType, QiitaTagsType } from '../lib/types';
 
-// const fetcher = (url: string) =>
-// 	axios
-// 		.get<QiitaPostType[]>(url, {
-// 			headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_QIITA_ACCESS_TOKEN!}` }
-// 		})
-// 		.then(res => res.data)
-
-// const fetcher = () => fetchQiitaPosts()
-
 const Qiita: VFC<{ posts: QiitaPostType[]; tags: QiitaTagsType }> = ({ posts, tags }) => {
 	const summary = pageSummary.qiita
-
-	// const { data, error } = useSWR('fetch-qiita-posts', fetcher, {
-	// 	initialData: posts,
-	// 	revalidateOnMount: true
-	// })
-
-	// if (error || !data) {
-	// 	return <>記事を取得出来ませんでした</>
-	// }
 
 	return (
 		<PageLayout title={summary.title} description={summary.description}>

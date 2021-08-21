@@ -1,9 +1,9 @@
 import Head from 'next/head';
-import React, { VFC } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import React, { useEffect, useState, VFC } from 'react';
+import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
 import { ColorThemeType } from '../datas/colorTheme';
-import { activePageNameState, colorThemeState } from '../lib/store';
+import { colorThemeState } from '../lib/store';
 import { LinkItem } from './atoms/LinkItem';
 import { FrameLines } from './FrameLines';
 import { PageMainLayout } from './PageMainLayout';
@@ -17,8 +17,20 @@ type PropsType = {
 export const PageLayout: VFC<PropsType> = props => {
 	const { children, title = 'Next.js Page', description = '' } = props
 	const colorTheme = useRecoilValue(colorThemeState)
-	const [activeName, setActiveName] = useRecoilState(activePageNameState)
-	const linkItems = ['Profile', 'Qiita', 'Udemy', 'Application', 'Site']
+	const [activeName, setActiveName] = useState('')
+	const linkItems = ['Profile', 'Qiita', 'Application', 'Site Abouts']
+
+	useEffect(() => {
+		const pageName = location.pathname.substring(1)
+
+		let linkName = ''
+		if (pageName === 'profile') linkName = 'Profile'
+		else if (pageName === 'qiita') linkName = 'Qiita'
+		else if (pageName === 'application') linkName = 'Application'
+		else if (pageName === 'site') linkName = 'Site Abouts'
+
+		setActiveName(linkName)
+	}, [])
 
 	return (
 		<div>
@@ -33,11 +45,11 @@ export const PageLayout: VFC<PropsType> = props => {
 						{linkItems.map(item => (
 							<LinkItem
 								key={item}
-								href={`/${item.toLowerCase()}`}
+								href={item === 'Site Abouts' ? '/site' : `/${item.toLowerCase()}`}
 								text={item}
 								marginTop={item === 'Profile' ? 0 : 40}
 								isActive={activeName === item}
-								clickHandler={() => setActiveName(item)}
+								// clickHandler={() => setActiveName(item)}
 							/>
 						))}
 					</nav>

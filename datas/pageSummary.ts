@@ -32,7 +32,7 @@ export const pageSummary: PageType = {
 			言語は TypeScript、フロントエンドフレームワークは React、UIは Material UI と Emotion/css（CSS in JS） を使用しています。`
 	},
 	site: {
-		title: 'Site',
-		description: 'about this site'
+		title: 'Site Abouts',
+		description: `このサイトがどのような技術で作成されているか紹介します。`
 	}
 }

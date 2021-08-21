@@ -17,7 +17,7 @@ export const ApplicationCard: VFC<{ app: ApplicationType }> = ({ app }) => {
 
 	return (
 		<div className={sCardContainer(colorTheme.sub)}>
-			<LinkLayout href={app.appUrl}>
+			<LinkLayout href={app.appUrl} isOuterLink>
 				<Image className={sImage} src={app.thumnail} alt={`${app.name} thumnail`} layout="fill" />
 			</LinkLayout>
 
@@ -40,14 +40,14 @@ export const ApplicationCard: VFC<{ app: ApplicationType }> = ({ app }) => {
 					</IconButton>
 				</div>
 				{/* GitHub Button */}
-				<LinkLayout href={app.gitUrl}>
+				<LinkLayout href={app.gitUrl} isOuterLink>
 					<IconButton className={classes.iconButton} aria-label="github">
 						<GitHubIcon className={classes.githubIcon} />
 					</IconButton>
 				</LinkLayout>
 				{/* Qiita Button */}
 				{app.qiitaUrl ? (
-					<LinkLayout href={app.qiitaUrl}>
+					<LinkLayout href={app.qiitaUrl} isOuterLink>
 						<IconButton className={classes.iconButton} aria-label="qiita">
 							<Avatar className={classes.qiitaIcon} src="/assets/icons/qiita.png" />
 						</IconButton>
