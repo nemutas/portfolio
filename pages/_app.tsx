@@ -2,9 +2,9 @@ import '../styles/globals.css';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import { RecoilRoot } from 'recoil';
-import { createTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
-import { orange } from '@material-ui/core/colors';
+import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { GlobalStyles } from '../styles/GlobalStyles';
+import { theme } from '../styles/theme';
 
 import type { AppProps } from 'next/app'
 function MyApp({ Component, pageProps }: AppProps) {
@@ -31,12 +31,3 @@ function MyApp({ Component, pageProps }: AppProps) {
 	)
 }
 export default MyApp
-
-const theme = createTheme({
-	palette: {
-		primary: {
-			main: orange[800]
-		},
-		type: 'light'
-	}
-})

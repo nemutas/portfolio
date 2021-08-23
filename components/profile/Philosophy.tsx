@@ -1,15 +1,19 @@
 import React, { memo, VFC } from 'react';
+import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
-import { Divider } from '@material-ui/core';
 import { philosophies, PhilosophyType } from '../../datas/philosophy';
-import { ContentText } from '../atoms/ContentText';
-import { ContentTitle } from '../atoms/ContentTitle';
+import { colorThemeState } from '../../lib/store';
+import { CustomDividerH } from '../atoms/CustomDividerH';
+import { ContentsText, ContentsTitle } from '../atoms/CustomText';
+import { SimpleDivider } from '../atoms/SimpleDivider';
 import { DesignListItem2 } from '../molecules/DesignListItem2';
 
 export const Philosophy: VFC = memo(() => {
+	const colorTheme = useRecoilValue(colorThemeState)
+
 	return (
 		<>
-			<Divider />
+			<SimpleDivider color={colorTheme.textAccent} thickness={2} />
 			{philosophies.map((philosophy, i) => (
 				<div key={i}>
 					<div className={sItemSpan}></div>
@@ -23,8 +27,8 @@ export const Philosophy: VFC = memo(() => {
 const PhilosophyItem: VFC<{ philosophy: PhilosophyType }> = ({ philosophy }) => {
 	return (
 		<DesignListItem2
-			title={<ContentTitle text={philosophy.title} />}
-			contents={<ContentText text={philosophy.description} />}
+			title={<ContentsTitle>{philosophy.title}</ContentsTitle>}
+			contents={<ContentsText>{philosophy.description}</ContentsText>}
 		/>
 	)
 }

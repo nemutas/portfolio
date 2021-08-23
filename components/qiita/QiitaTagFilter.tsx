@@ -1,11 +1,12 @@
 import React, { useState, VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
-import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import { ColorThemeType } from '../../datas/colorTheme';
 import { colorThemeState } from '../../lib/store';
 import { QiitaTagsType } from '../../lib/types';
+import { CustomText } from '../atoms/CustomText';
 import { VerticalScrollLayout } from '../VerticalScrollLayout';
 
 type PropsType = {
@@ -14,6 +15,8 @@ type PropsType = {
 }
 
 export const QiitaTagFilter: VFC<PropsType> = ({ selectedTags, setSelectedTags }) => {
+	const colorTheme = useRecoilValue(colorThemeState)
+	const classes = useStyles({ colorTheme })
 	const tagNames = Object.keys(selectedTags)
 	const [selectedAllTags, setSelectedAllTags] = useState(true)
 
@@ -39,7 +42,7 @@ export const QiitaTagFilter: VFC<PropsType> = ({ selectedTags, setSelectedTags }
 		<VerticalScrollLayout id="qiita-tag-filter">
 			<div className={sContainer}>
 				<div className={sTagFilterContainer}>
-					<LocalOfferIcon />
+					<LocalOfferIcon className={classes.tagIcon} />
 					<QiitaTag
 						name={selectedAllTags ? 'すべてのタグを解除する' : 'すべてのタグを選択する'}
 						selected={!selectedAllTags}
@@ -69,17 +72,12 @@ type QiitaTagPropsType = {
 
 const QiitaTag: VFC<QiitaTagPropsType> = ({ name, selected, clickHandler }) => {
 	const colorTheme = useRecoilValue(colorThemeState)
-	const classes = useStyles({ colorTheme })
 
 	return (
 		<div
-			className={
-				selected ? sSelectedTagChip(colorTheme.textAccent) : sTagChip(colorTheme.textAccent)
-			}
+			className={selected ? sSelectedTagChip(colorTheme) : sTagChip(colorTheme)}
 			onClick={clickHandler}>
-			<Typography className={selected ? classes.selectedTagText : classes.tagText} variant="body1">
-				{name}
-			</Typography>
+			<CustomText>{name}</CustomText>
 		</div>
 	)
 }
@@ -89,15 +87,8 @@ const QiitaTag: VFC<QiitaTagPropsType> = ({ name, selected, clickHandler }) => {
 
 const useStyles = makeStyles<Theme, { colorTheme: ColorThemeType }>((theme: Theme) =>
 	createStyles({
-		tagText: {
-			color: ({ colorTheme }) => colorTheme.textAccent,
-			fontSize: '0.9rem',
-			userSelect: 'none'
-		},
-		selectedTagText: {
-			color: ({ colorTheme }) => colorTheme.base,
-			fontSize: '0.9rem',
-			userSelect: 'none'
+		tagIcon: {
+			color: ({ colorTheme }) => colorTheme.textMain
 		}
 	})
 )
@@ -111,7 +102,7 @@ const sContainer = css`
 
 const sTagFilterContainer = css`
 	display: grid;
-	grid-template-columns: auto 1fr;
+	grid-template-columns: auto auto;
 	grid-gap: 10px;
 	align-items: center;
 `
@@ -122,17 +113,17 @@ const sTagListContainer = css`
 	row-gap: 5px;
 `
 
-const sTagChip = (color: string) => css`
+const sTagChip = (colorTheme: ColorThemeType) => css`
 	border-radius: 9999px;
-	border: 2px solid ${color};
+	border: 2px solid ${colorTheme.textAccent};
 	padding: 0px 12px;
 	margin-right: auto;
-	&:hover {
-		cursor: pointer;
-	}
+	cursor: pointer;
+	color: ${colorTheme.textAccent};
 `
 
-const sSelectedTagChip = (color: string) => css`
-	${sTagChip(color)}
-	background-color: ${color};
+const sSelectedTagChip = (colorTheme: ColorThemeType) => css`
+	${sTagChip(colorTheme)}
+	background-color: ${colorTheme.textAccent};
+	color: ${colorTheme.base};
 `

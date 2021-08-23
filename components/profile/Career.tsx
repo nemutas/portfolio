@@ -1,16 +1,19 @@
 import React, { memo, VFC } from 'react';
+import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
 import { Divider, Typography } from '@material-ui/core';
 import { careers, CareerType } from '../../datas/career';
-import { ContentText } from '../atoms/ContentText';
-import { ContentTitle } from '../atoms/ContentTitle';
-import { CustomDivider } from '../atoms/CustomDivider';
-import { DesignListItem } from '../molecules/DesignListItem';
+import { colorThemeState } from '../../lib/store';
+import { ContentsSubText, ContentsText, ContentsTitle } from '../atoms/CustomText';
+import { SimpleDivider } from '../atoms/SimpleDivider';
 import { DesignListItem2 } from '../molecules/DesignListItem2';
 
 export const Career: VFC = memo(() => {
+	const colorTheme = useRecoilValue(colorThemeState)
+
 	return (
 		<>
+			<SimpleDivider color={colorTheme.textAccent} thickness={2} />
 			{careers.map((career, i) => (
 				<div key={i}>
 					<div className={sItemSpan}></div>
@@ -25,13 +28,13 @@ const CareerItem: VFC<{ career: CareerType }> = ({ career }) => {
 	return (
 		<div className={sContainer}>
 			<div className={sDateContainer}>
-				<Typography variant="caption">{career.date}</Typography>
-				<Divider />
+				<ContentsSubText>{career.date}</ContentsSubText>
+				<SimpleDivider />
 			</div>
 
 			<DesignListItem2
-				title={<ContentTitle text={career.title} />}
-				contents={<ContentText text={career.description} />}
+				title={<ContentsTitle>{career.title}</ContentsTitle>}
+				contents={<ContentsText>{career.description}</ContentsText>}
 			/>
 		</div>
 	)

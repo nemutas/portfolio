@@ -4,13 +4,17 @@ import { css, cx } from '@emotion/css';
 import { Divider, Typography } from '@material-ui/core';
 import { skillGroups, SkillGroupType, SkillType } from '../../datas/skill';
 import { colorThemeState } from '../../lib/store';
-import { ContentTitle } from '../atoms/ContentTitle';
+import { CustomDividerH } from '../atoms/CustomDividerH';
+import { ContentsText, ContentsTitle, CustomText } from '../atoms/CustomText';
+import { SimpleDivider } from '../atoms/SimpleDivider';
 import { DesignListItem2 } from '../molecules/DesignListItem2';
 
 export const Skill: VFC = memo(() => {
+	const colorTheme = useRecoilValue(colorThemeState)
+
 	return (
 		<>
-			<Divider />
+			<SimpleDivider color={colorTheme.textAccent} thickness={2} />
 			<SkillLegend />
 			{skillGroups.map((skillGroup, i) => (
 				<div key={i}>
@@ -25,7 +29,7 @@ export const Skill: VFC = memo(() => {
 const SkillGroup: VFC<{ skillGroup: SkillGroupType }> = ({ skillGroup }) => {
 	return (
 		<DesignListItem2
-			title={<ContentTitle text={skillGroup.groupName} />}
+			title={<ContentsTitle>{skillGroup.groupName}</ContentsTitle>}
 			contents={<Skills skills={skillGroup.skills} />}
 		/>
 	)
@@ -41,7 +45,9 @@ const Skills: VFC<{ skills: SkillType[] }> = ({ skills }) => {
 					const color = skill.active ? colorTheme.textAccent : colorTheme.textSub
 					return (
 						<div key={i} className={sSkill(color)}>
-							<Typography variant="body2">{skill.name}</Typography>
+							<CustomText color={colorTheme.textMain} fontSizeRem={0.9}>
+								{skill.name}
+							</CustomText>
 						</div>
 					)
 				})}
@@ -56,10 +62,14 @@ const SkillLegend: VFC = () => {
 	return (
 		<div className={sLegendContainer}>
 			<div className={cx(sLegend(colorTheme.textAccent), sLegendPosition)}>
-				<Typography variant="body2">現在使っている技術</Typography>
+				<CustomText color={colorTheme.textMain} fontSizeRem={0.9}>
+					現在使っている技術
+				</CustomText>
 			</div>
 			<div className={sLegend(colorTheme.textSub)}>
-				<Typography variant="body2">過去に使ったことのある技術</Typography>
+				<CustomText color={colorTheme.textMain} fontSizeRem={0.9}>
+					過去に使ったことのある技術
+				</CustomText>
 			</div>
 		</div>
 	)
@@ -82,7 +92,7 @@ const sSkillItemContainer = css`
 const sSkill = (color: string) => css`
 	border-radius: 9999px;
 	border: 2px solid ${color};
-	padding: 3px 12px;
+	padding: 0 12px 2px 12px;
 `
 
 const sLegendContainer = css`
@@ -94,7 +104,7 @@ const sLegendContainer = css`
 const sLegend = (color: string) => css`
 	border-radius: 9999px;
 	border: 2px solid ${color};
-	padding: 3px 12px;
+	padding: 0 12px 2px 12px;
 `
 
 const sLegendPosition = css`

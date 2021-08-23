@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
 import { ColorThemeType } from '../datas/colorTheme';
 import { colorThemeState } from '../lib/store';
+import { BP_MD } from '../styles/GlobalStyles';
 
 export const FrameLines: VFC = () => {
 	const colorTheme = useRecoilValue(colorThemeState)
@@ -24,6 +25,8 @@ export const FrameLines: VFC = () => {
 	)
 }
 
+const mdRatio = 0.8
+
 const sLineHB = (theme: ColorThemeType, length: number, bottom: number) => css`
 	position: absolute;
 	bottom: ${bottom}px;
@@ -31,6 +34,12 @@ const sLineHB = (theme: ColorThemeType, length: number, bottom: number) => css`
 	width: ${length}px;
 	height: 3px;
 	background-color: ${theme.main};
+
+	@media (max-width: ${BP_MD}) {
+		bottom: calc(${bottom}px * ${mdRatio});
+		width: calc(${length}px * ${mdRatio});
+		height: calc(3px * ${mdRatio});
+	}
 `
 
 const sLineVB = (theme: ColorThemeType, length: number, left: number) => css`
@@ -40,6 +49,12 @@ const sLineVB = (theme: ColorThemeType, length: number, left: number) => css`
 	width: 3px;
 	height: ${length}px;
 	background-color: ${theme.main};
+
+	@media (max-width: ${BP_MD}) {
+		left: calc(${left}px * ${mdRatio});
+		width: calc(3px * ${mdRatio});
+		height: calc(${length}px * ${mdRatio});
+	}
 `
 
 const sLineHT = (theme: ColorThemeType, length: number, top: number) => css`
@@ -49,6 +64,12 @@ const sLineHT = (theme: ColorThemeType, length: number, top: number) => css`
 	width: ${length}px;
 	height: 3px;
 	background-color: ${theme.main};
+
+	@media (max-width: ${BP_MD}) {
+		top: calc(${top}px * ${mdRatio});
+		width: calc(${length}px * ${mdRatio});
+		height: calc(3px * ${mdRatio});
+	}
 `
 
 const sLineVT = (theme: ColorThemeType, length: number, right: number) => css`
@@ -58,4 +79,10 @@ const sLineVT = (theme: ColorThemeType, length: number, right: number) => css`
 	width: 3px;
 	height: ${length}px;
 	background-color: ${theme.main};
+
+	@media (max-width: ${BP_MD}) {
+		right: calc(${right}px * ${mdRatio});
+		width: calc(3px * ${mdRatio});
+		height: calc(${length}px * ${mdRatio});
+	}
 `

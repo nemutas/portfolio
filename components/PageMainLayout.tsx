@@ -1,6 +1,9 @@
 import React, { VFC } from 'react';
+import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import { colorThemeState } from '../lib/store';
+import { ContentsText, CustomText } from './atoms/CustomText';
 
 type PropsType = {
 	children: React.ReactNode
@@ -10,15 +13,17 @@ type PropsType = {
 
 export const PageMainLayout: VFC<PropsType> = props => {
 	const { children, title, description } = props
-	const classes = useStyles()
+	const colorTheme = useRecoilValue(colorThemeState)
 
 	return (
 		<div className={sContainer}>
 			<div className={sTitleContainer}>
-				<Typography className={classes.title} variant="h3" component="h1">
-					{title}
-				</Typography>
-				<Typography className={classes.desc}>{description}</Typography>
+				<div className={sTitle}>
+					<CustomText component="h1" color={colorTheme.textMain} fontSizeRem={3}>
+						{title}
+					</CustomText>
+				</div>
+				<ContentsText>{description}</ContentsText>
 			</div>
 			<div className={sMainContainer}>{children}</div>
 		</div>
@@ -38,20 +43,14 @@ const sMainContainer = css`
 // ----------------------------
 // title
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		title: {
-			padding: theme.spacing(0, 5)
-		},
-		desc: {
-			whiteSpace: 'pre-line'
-		}
-	})
-)
-
 const sTitleContainer = css`
 	display: grid;
 	grid-template-columns: auto 1fr 300px;
 	grid-template-rows: 90px;
 	align-items: center;
+	column-gap: 1.5rem;
+`
+
+const sTitle = css`
+	margin-left: 1.5rem;
 `

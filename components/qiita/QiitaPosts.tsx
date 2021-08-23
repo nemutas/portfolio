@@ -8,6 +8,8 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import { ColorThemeType } from '../../datas/colorTheme';
 import { colorThemeState } from '../../lib/store';
 import { QiitaPostType, QiitaTagsType } from '../../lib/types';
+import { ContentsSubText, CustomText } from '../atoms/CustomText';
+import { SimpleDivider } from '../atoms/SimpleDivider';
 import { SubText } from '../atoms/SubText';
 import { DesignListItem3 } from '../molecules/DesignListItem3';
 import { VerticalScrollLayout } from '../VerticalScrollLayout';
@@ -21,7 +23,6 @@ type PropsType = {
 export const QiitaPosts: VFC<PropsType> = ({ posts, tags }) => {
 	const [selectedTags, setSelectedTags] = useState(tags)
 	const colorTheme = useRecoilValue(colorThemeState)
-	const classes = useStyles({ colorTheme })
 
 	/** 対象の記事に、選択しているTagがあるか */
 	const selectedPost = (post: QiitaPostType) => {
@@ -37,10 +38,13 @@ export const QiitaPosts: VFC<PropsType> = ({ posts, tags }) => {
 
 	return (
 		<div className={sContainer}>
+			{/* column 1 */}
 			<div>
 				<QiitaTagFilter selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
 			</div>
-			<Divider orientation="vertical" />
+			{/* column 2 */}
+			<SimpleDivider orientation="vertical" />
+			{/* column 3 */}
 			<VerticalScrollLayout>
 				{posts.map(post => (
 					<div key={post.id}>
@@ -75,7 +79,9 @@ const QiitaPostContents: VFC<{ post: QiitaPostType }> = ({ post }) => {
 			{/* row 1 */}
 			<div className={sMetaGridContainer}>
 				<div className={sMetaContainer}>
-					<SubText text={new Date(post.created_at).toLocaleString()} />
+					<ContentsSubText fontSizeRem={0.9}>
+						{new Date(post.created_at).toLocaleString()}
+					</ContentsSubText>
 					<div className={sAvatarContainer}>
 						<Image
 							className={sAvatar}
@@ -84,35 +90,30 @@ const QiitaPostContents: VFC<{ post: QiitaPostType }> = ({ post }) => {
 							width={25}
 							height={25}
 						/>
-						<SubText text={`@${post.user.id}`} />
+						<ContentsSubText fontSizeRem={0.9}>{`@${post.user.id}`}</ContentsSubText>
 					</div>
 				</div>
 			</div>
 			{/* row 2 col 1 */}
 			<div className={sIconGridContainer}>
-				<div
-					className={
-						isHover
-							? sHoveredIconContainer(colorTheme.textAccent)
-							: sIconContainer(colorTheme.textAccent)
-					}>
-					<Typography className={isHover ? classes.hoveredLGTM : classes.LGTM} variant="button">
-						LGTM
-					</Typography>
-					<Typography className={isHover ? classes.hoveredLGTM : classes.LGTM} variant="button">
-						{post.likes_count}
-					</Typography>
+				<div className={isHover ? sHoveredIconContainer(colorTheme) : sIconContainer(colorTheme)}>
+					<CustomText fontSizeRem={1.1}>LGTM</CustomText>
+					<CustomText fontSizeRem={1.1}>{post.likes_count}</CustomText>
 				</div>
 			</div>
 			{/* row 2 col 2 */}
 			<div>
-				<Typography variant="h6">{post.title}</Typography>
+				<CustomText color={colorTheme.textMain} fontSizeRem={1.3}>
+					{post.title}
+				</CustomText>
 			</div>
 			{/* row 3 col 2 */}
 			<div className={sTagContainer}>
-				<LocalOfferIcon />
+				<LocalOfferIcon className={classes.tagIcon} />
 				{post.tags.map((tag, i) => (
-					<SubText key={i} text={tag.name} />
+					<ContentsSubText key={i} fontSizeRem={0.9}>
+						{tag.name}
+					</ContentsSubText>
 				))}
 			</div>
 		</div>
@@ -124,18 +125,8 @@ const QiitaPostContents: VFC<{ post: QiitaPostType }> = ({ post }) => {
 
 const useStyles = makeStyles<Theme, { colorTheme: ColorThemeType }>((theme: Theme) =>
 	createStyles({
-		LGTM: {
-			color: ({ colorTheme }) => colorTheme.textAccent,
-			lineHeight: 0,
-			fontSize: '1.1rem'
-		},
-		hoveredLGTM: {
-			color: ({ colorTheme }) => colorTheme.base,
-			lineHeight: 0,
-			fontSize: '1.1rem'
-		},
-		divider: {
-			marginBottom: theme.spacing(2)
+		tagIcon: {
+			color: ({ colorTheme }) => colorTheme.textMain
 		}
 	})
 )
@@ -193,7 +184,7 @@ const sAvatar = css`
 // ----------------------------------------------
 // LGTM
 
-const sIconContainer = (color: string) => css`
+const sIconContainer = (colorTheme: ColorThemeType) => css`
 	display: grid;
 	flex-direction: row;
 	justify-items: center;
@@ -203,12 +194,18 @@ const sIconContainer = (color: string) => css`
 	height: 70px;
 	width: 70px;
 	border-radius: 9999px;
-	border: 2px solid ${color};
+	border: 2px solid ${colorTheme.textAccent};
+	color: ${colorTheme.textAccent};
 `
 
-const sHoveredIconContainer = (color: string) => css`
-	${sIconContainer(color)}
-	background-color: ${color};
+const sHoveredIconContainer = (colorTheme: ColorThemeType) => css`
+	${sIconContainer(colorTheme)}
+	background-color: ${colorTheme.textAccent};
+	color: ${colorTheme.base};
+`
+
+const sLGTM = (color: string) => css`
+	color: ${color};
 `
 
 // ----------------------------------------------

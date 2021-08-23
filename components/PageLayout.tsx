@@ -5,6 +5,7 @@ import { css } from '@emotion/css';
 import { ColorThemeType } from '../datas/colorTheme';
 import { colorThemeState } from '../lib/store';
 import { LinkItem } from './atoms/LinkItem';
+import { Footer } from './footer/Footer';
 import { FrameLines } from './FrameLines';
 import { PageMainLayout } from './PageMainLayout';
 
@@ -66,7 +67,9 @@ export const PageLayout: VFC<PropsType> = props => {
 					</PageMainLayout>
 				</main>
 
-				<footer className={sFooterContainer}></footer>
+				<footer className={sFooterContainer}>
+					<Footer />
+				</footer>
 			</div>
 		</div>
 	)
@@ -138,4 +141,7 @@ const sLineVB = (theme: ColorThemeType) => css`
 
 const sFooterContainer = css`
 	width: 60px;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
 `

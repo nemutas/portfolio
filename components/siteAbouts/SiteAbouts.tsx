@@ -1,8 +1,7 @@
 import React, { VFC } from 'react';
 import { css } from '@emotion/css';
 import { siteAbouts } from '../../datas/siteAbouts';
-import { ContentText } from '../atoms/ContentText';
-import { ContentTitle } from '../atoms/ContentTitle';
+import { ContentsText, ContentsTitle } from '../atoms/CustomText';
 import { DesignListItem2 } from '../molecules/DesignListItem2';
 import { VerticalScrollLayout } from '../VerticalScrollLayout';
 
@@ -13,8 +12,8 @@ export const SiteAbouts: VFC = () => {
 				<div key={i}>
 					<div className={i === 0 ? sDummy : sItemSpan}></div>
 					<DesignListItem2
-						title={<ContentTitle text={abouts.title} />}
-						contents={<ContentText text={abouts.description} />}
+						title={<ContentsTitle>{abouts.title}</ContentsTitle>}
+						contents={<ContentsText>{abouts.description}</ContentsText>}
 					/>
 				</div>
 			))}

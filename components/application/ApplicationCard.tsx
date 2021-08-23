@@ -2,12 +2,13 @@ import Image from 'next/image';
 import React, { useState, VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
-import { Avatar, createStyles, IconButton, makeStyles, Theme, Typography } from '@material-ui/core';
+import { Avatar, createStyles, IconButton, makeStyles, Theme } from '@material-ui/core';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { ApplicationType } from '../../datas/application';
 import { colorThemeState } from '../../lib/store';
+import { CustomText } from '../atoms/CustomText';
 import { LinkLayout } from '../atoms/LinkLayout';
 
 export const ApplicationCard: VFC<{ app: ApplicationType }> = ({ app }) => {
@@ -23,9 +24,9 @@ export const ApplicationCard: VFC<{ app: ApplicationType }> = ({ app }) => {
 
 			<div className={sSummaryCard}>
 				{/* name */}
-				<Typography className={classes.name} variant="h6">
+				<CustomText color="#F2F2F2" fontSizeRem={1.3}>
 					{app.name}
-				</Typography>
+				</CustomText>
 				{/* Expand more less Button */}
 				<div>
 					<IconButton
@@ -60,9 +61,7 @@ export const ApplicationCard: VFC<{ app: ApplicationType }> = ({ app }) => {
 				{/* Description */}
 				{expandMore && (
 					<div className={sDescription}>
-						<Typography className={classes.desc} variant="body1">
-							{app.description}
-						</Typography>
+						<CustomText color="#F2F2F2">{app.description}</CustomText>
 					</div>
 				)}
 			</div>
@@ -72,13 +71,6 @@ export const ApplicationCard: VFC<{ app: ApplicationType }> = ({ app }) => {
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
-		name: {
-			color: '#F2F2F2'
-		},
-		desc: {
-			color: '#F2F2F2',
-			whiteSpace: 'pre-line'
-		},
 		expandIcon: {
 			color: '#F2F2F2'
 		},
