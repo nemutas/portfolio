@@ -86,7 +86,8 @@ const sSkillsGridContainer = css`
 
 const sSkillItemContainer = css`
 	display: flex;
-	column-gap: 5px;
+	grid-gap: 5px;
+	flex-wrap: wrap;
 `
 
 const sSkill = (color: string) => css`

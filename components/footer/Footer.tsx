@@ -71,5 +71,5 @@ const sFooterIconContainer = (theme: ColorThemeType) => css`
 const sThemeSelector = css`
 	position: absolute;
 	bottom: 0;
-	right: 60px;
+	right: 65px;
 `

@@ -2,8 +2,8 @@ import React, { VFC } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { css } from '@emotion/css';
 import { createStyles, IconButton, makeStyles, Theme } from '@material-ui/core';
-import { colorThemes, ColorThemeType } from '../../datas/colorTheme';
-import { colorThemeState } from '../../lib/store';
+import { colorThemes } from '../../datas/colorTheme';
+import { colorThemeState, setColorThemeToLocalStorage } from '../../lib/store';
 import { ColorThemeIcon } from '../atoms/ColorThemeIcon';
 
 type PropsType = {
@@ -14,8 +14,9 @@ export const ThemeSelector: VFC<PropsType> = ({ setOpenThemeSelector }) => {
 	const setColorTheme = useSetRecoilState(colorThemeState)
 	const classes = useStyles()
 
-	const clickHandler = (theme: ColorThemeType) => {
-		setColorTheme(theme)
+	const clickHandler = (themeName: string) => {
+		setColorTheme(colorThemes[themeName])
+		setColorThemeToLocalStorage(themeName)
 		setOpenThemeSelector(false)
 	}
 
@@ -26,7 +27,7 @@ export const ThemeSelector: VFC<PropsType> = ({ setOpenThemeSelector }) => {
 					<IconButton
 						className={classes.iconButton}
 						aria-label="color-theme"
-						onClick={() => clickHandler(colorThemes[themeName])}>
+						onClick={() => clickHandler(themeName)}>
 						<ColorThemeIcon colorTheme={colorThemes[themeName]} size={20} />
 					</IconButton>
 				</div>

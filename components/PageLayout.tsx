@@ -1,12 +1,16 @@
 import Head from 'next/head';
-import React, { useEffect, useState, VFC } from 'react';
+import React, { useState, VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
+import { createStyles, IconButton, makeStyles, Theme } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 import { ColorThemeType } from '../datas/colorTheme';
 import { colorThemeState } from '../lib/store';
-import { LinkItem } from './atoms/LinkItem';
+import { BP_SM, sDisplayNone_Width_SM } from '../styles/breakPointStyles';
 import { Footer } from './footer/Footer';
 import { FrameLines } from './FrameLines';
+import { GlobalNavigator } from './GlobalNavigator';
+import { ModalNavigator } from './ModalNavigator';
 import { PageMainLayout } from './PageMainLayout';
 
 type PropsType = {
@@ -18,20 +22,8 @@ type PropsType = {
 export const PageLayout: VFC<PropsType> = props => {
 	const { children, title = 'Next.js Page', description = '' } = props
 	const colorTheme = useRecoilValue(colorThemeState)
-	const [activeName, setActiveName] = useState('')
-	const linkItems = ['Profile', 'Qiita', 'Application', 'Site Abouts']
-
-	useEffect(() => {
-		const pageName = location.pathname.substring(1)
-
-		let linkName = ''
-		if (pageName === 'profile') linkName = 'Profile'
-		else if (pageName === 'qiita') linkName = 'Qiita'
-		else if (pageName === 'application') linkName = 'Application'
-		else if (pageName === 'site') linkName = 'Site Abouts'
-
-		setActiveName(linkName)
-	}, [])
+	const classes = useStyles({ colorTheme })
+	const [openModalNav, setOpenModalNav] = useState(false)
 
 	return (
 		<div>
@@ -42,30 +34,33 @@ export const PageLayout: VFC<PropsType> = props => {
 			<div className={sContainer(colorTheme)}>
 				<header className={sHeaderContainer}>
 					<div>Logo</div>
-					<nav className={sNavigator}>
-						{linkItems.map(item => (
-							<LinkItem
-								key={item}
-								href={item === 'Site Abouts' ? '/site' : `/${item.toLowerCase()}`}
-								text={item}
-								marginTop={item === 'Profile' ? 0 : 40}
-								isActive={activeName === item}
-								// clickHandler={() => setActiveName(item)}
-							/>
-						))}
-					</nav>
+					<div className={sNavigator}>
+						<GlobalNavigator />
+					</div>
 				</header>
 
 				<main className={sMainContainer}>
-					<FrameLines />
-					<div className={sLineHT(colorTheme)}></div>
-					<div className={sLineVT(colorTheme)}></div>
-					<div className={sLineVB(colorTheme)}></div>
+					<div>
+						<FrameLines />
+						<div className={sLineHT(colorTheme)}></div>
+						<div className={sLineVT(colorTheme)}></div>
+						<div className={sLineVB(colorTheme)}></div>
+					</div>
 
 					<PageMainLayout title={title} description={description}>
 						{children}
 					</PageMainLayout>
 				</main>
+
+				{openModalNav ? (
+					<ModalNavigator setOpenModalNav={setOpenModalNav} />
+				) : (
+					<div className={sModalNavButtonContainer}>
+						<IconButton aria-label="modal-navigator" onClick={() => setOpenModalNav(true)}>
+							<MenuIcon className={classes.menu} />
+						</IconButton>
+					</div>
+				)}
 
 				<footer className={sFooterContainer}>
 					<Footer />
@@ -77,6 +72,15 @@ export const PageLayout: VFC<PropsType> = props => {
 
 // ==============================================
 // styles
+
+const useStyles = makeStyles<Theme, { colorTheme: ColorThemeType }>((theme: Theme) =>
+	createStyles({
+		menu: {
+			color: ({ colorTheme }) => colorTheme.textAccent,
+			fontSize: '2rem'
+		}
+	})
+)
 
 const sContainer = (theme: ColorThemeType) => css`
 	position: relative;
@@ -96,6 +100,8 @@ const sHeaderContainer = css`
 	display: grid;
 	flex-direction: row;
 	grid-template-rows: 100px 1fr;
+
+	${sDisplayNone_Width_SM}
 `
 
 const sNavigator = css`
@@ -116,6 +122,10 @@ const sLineHT = (theme: ColorThemeType) => css`
 	width: 300px;
 	height: 3px;
 	background-color: ${theme.main};
+
+	@media (max-width: ${BP_SM}) {
+		left: 0;
+	}
 `
 
 const sLineVT = (theme: ColorThemeType) => css`
@@ -125,6 +135,8 @@ const sLineVT = (theme: ColorThemeType) => css`
 	width: 3px;
 	height: 300px;
 	background-color: ${theme.main};
+
+	${sDisplayNone_Width_SM}
 `
 
 const sLineVB = (theme: ColorThemeType) => css`
@@ -134,6 +146,8 @@ const sLineVB = (theme: ColorThemeType) => css`
 	width: 3px;
 	height: 300px;
 	background-color: ${theme.main};
+
+	${sDisplayNone_Width_SM}
 `
 
 // ------------------------------------
@@ -144,4 +158,19 @@ const sFooterContainer = css`
 	display: flex;
 	align-items: flex-end;
 	justify-content: center;
+
+	${sDisplayNone_Width_SM}
+`
+
+// ------------------------------------
+// Modal Navigator
+
+const sModalNavButtonContainer = css`
+	position: absolute;
+	top: 0;
+	right: 0;
+
+	@media (min-width: ${BP_SM}) {
+		display: none;
+	}
 `

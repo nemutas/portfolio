@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
 import { colorThemeState } from '../lib/store';
+import { BP_MD } from '../styles/breakPointStyles';
 import { ContentsText, CustomText } from './atoms/CustomText';
 
 type PropsType = {
@@ -49,6 +50,10 @@ const sTitleContainer = css`
 	grid-template-rows: 90px;
 	align-items: center;
 	column-gap: 1.5rem;
+
+	@media (max-width: ${BP_MD}) {
+		grid-template-columns: auto 1fr 30px;
+	}
 `
 
 const sTitle = css`

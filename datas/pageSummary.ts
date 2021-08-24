@@ -29,7 +29,7 @@ export const pageSummary: PageType = {
 	application: {
 		title: 'Application',
 		description: `今までに作成したWebアプリケーションです。
-			言語は TypeScript、フロントエンドフレームワークは React、UIは Material UI と Emotion/css（CSS in JS） を使用しています。`
+			詳細は、GitHubのリポジトリや、Qiitaの記事にまとめています。`
 	},
 	site: {
 		title: 'Site Abouts',

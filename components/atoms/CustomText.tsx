@@ -1,21 +1,22 @@
 import React, { ElementType, VFC } from 'react';
 import { useRecoilValue } from 'recoil';
-import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import { createStyles, makeStyles, PropTypes, Theme, Typography } from '@material-ui/core';
 import { colorThemeState } from '../../lib/store';
 
 type TextLayoutPropsType = {
 	component?: ElementType
+	align?: PropTypes.Alignment
 	color?: string
 	fontSizeRem?: number
 	children: React.ReactNode
 }
 
 export const CustomText: VFC<TextLayoutPropsType> = props => {
-	const { component = 'div', color, fontSizeRem = 1, children } = props
+	const { color, fontSizeRem = 1, children, ...definedProps } = props
 	const classes = useStyles({ color: color ? color : 'black', size: fontSizeRem })
 
 	return (
-		<Typography className={`${classes.root} ${color && classes.color}`} component={component}>
+		<Typography className={`${classes.root} ${color && classes.color}`} {...definedProps}>
 			{children}
 		</Typography>
 	)

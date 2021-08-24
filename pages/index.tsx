@@ -8,6 +8,7 @@ import { CustomText } from '../components/atoms/CustomText';
 import { LinkLayout } from '../components/atoms/LinkLayout';
 import { Layout } from '../components/Layout';
 import { colorThemeState } from '../lib/store';
+import { BP_SM } from '../styles/breakPointStyles';
 
 const Home: VFC = () => {
 	const colorTheme = useRecoilValue(colorThemeState)
@@ -18,12 +19,12 @@ const Home: VFC = () => {
 				<div className={sContentsContainer}>
 					{/* row 1 */}
 					<CustomText color={colorTheme.textMain} fontSizeRem={4}>
-						Hello, my name is
+						<span className={sTextBP}>Hello, my name is</span>
 					</CustomText>
 					<div></div>
 					{/* row 2 */}
 					<CustomText color={colorTheme.textAccent} fontSizeRem={6}>
-						Inoue Hiromichi
+						<span className={sTextBP}>Inoue Hiromichi </span>
 					</CustomText>
 					<div></div>
 					{/* row 3 */}
@@ -36,7 +37,7 @@ const Home: VFC = () => {
 							margin-left: auto;
 						`}>
 						<CustomText color={colorTheme.textSub} fontSizeRem={2.5}>
-							Web Front-end Engineer
+							<span className={sTextBP}>Web Front-end Engineer</span>
 						</CustomText>
 					</div>
 					<div></div>
@@ -76,4 +77,10 @@ const sDivider = css`
 
 const sButtonContainer = css`
 	margin: 5rem auto 0 auto;
+`
+
+const sTextBP = css`
+	@media (max-width: ${BP_SM}) {
+		font-size: 60%;
+	}
 `

@@ -3,7 +3,6 @@ import React, { VFC } from 'react';
 import { css } from '@emotion/css';
 import { PageLayout } from '../components/PageLayout';
 import { QiitaPosts } from '../components/qiita/QiitaPosts';
-import { qiitaDummydatas } from '../datas/dummyData';
 import { pageSummary } from '../datas/pageSummary';
 import { fetchQiitaPosts } from '../lib/fetch';
 import { QiitaPostType, QiitaTagsType } from '../lib/types';

@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
 import { ColorThemeType } from '../datas/colorTheme';
 import { colorThemeState } from '../lib/store';
-import { BP_MD } from '../styles/GlobalStyles';
+import { BP_SS, sDisplayNone_Height_XS, sDisplayNone_Width_SM } from '../styles/breakPointStyles';
 
 export const FrameLines: VFC = () => {
 	const colorTheme = useRecoilValue(colorThemeState)
@@ -12,7 +12,7 @@ export const FrameLines: VFC = () => {
 	const span = 30
 
 	return (
-		<div>
+		<div className={sContainer}>
 			{lines.map((line, i) => (
 				<div key={i}>
 					<div className={sLineHB(colorTheme, line, (i + 1) * span)}></div>
@@ -25,7 +25,12 @@ export const FrameLines: VFC = () => {
 	)
 }
 
-const mdRatio = 0.8
+const sRaito = 0.8
+
+const sContainer = css`
+	${sDisplayNone_Width_SM}
+	${sDisplayNone_Height_XS}
+`
 
 const sLineHB = (theme: ColorThemeType, length: number, bottom: number) => css`
 	position: absolute;
@@ -35,10 +40,9 @@ const sLineHB = (theme: ColorThemeType, length: number, bottom: number) => css`
 	height: 3px;
 	background-color: ${theme.main};
 
-	@media (max-width: ${BP_MD}) {
-		bottom: calc(${bottom}px * ${mdRatio});
-		width: calc(${length}px * ${mdRatio});
-		height: calc(3px * ${mdRatio});
+	@media (max-height: ${BP_SS}) {
+		bottom: calc(${bottom}px * ${sRaito});
+		width: calc(${length}px * ${sRaito});
 	}
 `
 
@@ -50,10 +54,9 @@ const sLineVB = (theme: ColorThemeType, length: number, left: number) => css`
 	height: ${length}px;
 	background-color: ${theme.main};
 
-	@media (max-width: ${BP_MD}) {
-		left: calc(${left}px * ${mdRatio});
-		width: calc(3px * ${mdRatio});
-		height: calc(${length}px * ${mdRatio});
+	@media (max-height: ${BP_SS}) {
+		left: calc(${left}px * ${sRaito});
+		height: calc(${length}px * ${sRaito});
 	}
 `
 
@@ -65,10 +68,9 @@ const sLineHT = (theme: ColorThemeType, length: number, top: number) => css`
 	height: 3px;
 	background-color: ${theme.main};
 
-	@media (max-width: ${BP_MD}) {
-		top: calc(${top}px * ${mdRatio});
-		width: calc(${length}px * ${mdRatio});
-		height: calc(3px * ${mdRatio});
+	@media (max-height: ${BP_SS}) {
+		top: calc(${top}px * ${sRaito});
+		width: calc(${length}px * ${sRaito});
 	}
 `
 
@@ -80,9 +82,8 @@ const sLineVT = (theme: ColorThemeType, length: number, right: number) => css`
 	height: ${length}px;
 	background-color: ${theme.main};
 
-	@media (max-width: ${BP_MD}) {
-		right: calc(${right}px * ${mdRatio});
-		width: calc(3px * ${mdRatio});
-		height: calc(${length}px * ${mdRatio});
+	@media (max-height: ${BP_SS}) {
+		right: calc(${right}px * ${sRaito});
+		height: calc(${length}px * ${sRaito});
 	}
 `

@@ -2,8 +2,8 @@ import Link from 'next/link';
 import React, { VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
-import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
 import { colorThemeState } from '../../lib/store';
+import { CustomText } from './CustomText';
 
 type PropsType = {
 	href: string
@@ -18,7 +18,6 @@ export const LinkItem: VFC<PropsType> = props => {
 	const { href, text, subText, marginTop = 0, isActive = false, clickHandler = () => {} } = props
 	const colorTheme = useRecoilValue(colorThemeState)
 	const textColor = isActive ? colorTheme.textAccent : colorTheme.textMain
-	const classes = useStyles({ textColor })
 
 	return (
 		<div className={sLinkItemContainer(marginTop)}>
@@ -26,13 +25,13 @@ export const LinkItem: VFC<PropsType> = props => {
 				<a className={sLinkItem(textColor)} onClick={clickHandler}>
 					<div className={sTextContainer}>
 						{subText && (
-							<Typography className={classes.text} variant="caption" align="left">
+							<CustomText align="left" color={textColor} fontSizeRem={0.8}>
 								{subText}
-							</Typography>
+							</CustomText>
 						)}
-						<Typography className={classes.text} variant="h4">
+						<CustomText color={textColor} fontSizeRem={2.2}>
 							{text}
-						</Typography>
+						</CustomText>
 					</div>
 				</a>
 			</Link>
@@ -42,14 +41,6 @@ export const LinkItem: VFC<PropsType> = props => {
 
 // ==============================================
 // styles
-
-const useStyles = makeStyles<Theme, { textColor: string }>((theme: Theme) =>
-	createStyles({
-		text: {
-			color: ({ textColor }) => textColor
-		}
-	})
-)
 
 const sLinkItemContainer = (mt: number) => css`
 	margin-top: ${mt}px;

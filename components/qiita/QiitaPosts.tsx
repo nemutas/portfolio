@@ -1,16 +1,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState, VFC } from 'react';
+import React, { useState, VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
-import { createStyles, Divider, makeStyles, Theme, Typography } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import { ColorThemeType } from '../../datas/colorTheme';
 import { colorThemeState } from '../../lib/store';
 import { QiitaPostType, QiitaTagsType } from '../../lib/types';
+import { BP_MD, sDisplayNone_Width_MD } from '../../styles/breakPointStyles';
 import { ContentsSubText, CustomText } from '../atoms/CustomText';
 import { SimpleDivider } from '../atoms/SimpleDivider';
-import { SubText } from '../atoms/SubText';
 import { DesignListItem3 } from '../molecules/DesignListItem3';
 import { VerticalScrollLayout } from '../VerticalScrollLayout';
 import { QiitaTagFilter } from './QiitaTagFilter';
@@ -39,11 +39,19 @@ export const QiitaPosts: VFC<PropsType> = ({ posts, tags }) => {
 	return (
 		<div className={sContainer}>
 			{/* column 1 */}
-			<div>
+			<div
+				className={css`
+					${sDisplayNone_Width_MD}
+				`}>
 				<QiitaTagFilter selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
 			</div>
 			{/* column 2 */}
-			<SimpleDivider orientation="vertical" />
+			<div
+				className={css`
+					${sDisplayNone_Width_MD}
+				`}>
+				<SimpleDivider orientation="vertical" />
+			</div>
 			{/* column 3 */}
 			<VerticalScrollLayout>
 				{posts.map(post => (
@@ -110,11 +118,13 @@ const QiitaPostContents: VFC<{ post: QiitaPostType }> = ({ post }) => {
 			{/* row 3 col 2 */}
 			<div className={sTagContainer}>
 				<LocalOfferIcon className={classes.tagIcon} />
-				{post.tags.map((tag, i) => (
-					<ContentsSubText key={i} fontSizeRem={0.9}>
-						{tag.name}
-					</ContentsSubText>
-				))}
+				<div className={sTagNameContainer}>
+					{post.tags.map((tag, i) => (
+						<ContentsSubText key={i} fontSizeRem={0.9}>
+							{tag.name}
+						</ContentsSubText>
+					))}
+				</div>
 			</div>
 		</div>
 	)
@@ -139,6 +149,10 @@ const sContainer = css`
 	column-gap: 20px;
 	width: 100%;
 	height: calc(100vh - 180px);
+
+	@media (max-width: ${BP_MD}) {
+		grid-template-columns: 1fr;
+	}
 `
 
 // ----------------------------------------------
@@ -204,15 +218,20 @@ const sHoveredIconContainer = (colorTheme: ColorThemeType) => css`
 	color: ${colorTheme.base};
 `
 
-const sLGTM = (color: string) => css`
-	color: ${color};
-`
-
 // ----------------------------------------------
 // tag
 
 const sTagContainer = css`
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-gap: 10px;
+	align-items: center;
+`
+
+const sTagNameContainer = css`
 	display: flex;
 	align-items: center;
-	grid-gap: 10px;
+	column-gap: 10px;
+	row-gap: 10px;
+	flex-wrap: wrap;
 `

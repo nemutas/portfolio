@@ -1,14 +1,17 @@
-import React, { VFC } from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { useEffect, VFC } from 'react';
+import { useRecoilState } from 'recoil';
 import { css, Global } from '@emotion/react';
-import { ColorThemeType } from '../datas/colorTheme';
-import { colorThemeState } from '../lib/store';
-
-export const BP_MD = '900px'
-export const BP_XS = '400px'
+import { colorThemes, ColorThemeType } from '../datas/colorTheme';
+import { colorThemeState, getColorThemeFromLocalStorage } from '../lib/store';
+import { BP_XS } from './breakPointStyles';
 
 export const GlobalStyles: VFC = () => {
-	const colorTheme = useRecoilValue(colorThemeState)
+	const [colorTheme, setColorTheme] = useRecoilState(colorThemeState)
+
+	useEffect(() => {
+		const themeName = getColorThemeFromLocalStorage()
+		setColorTheme(colorThemes[themeName])
+	}, [])
 
 	return <Global styles={sGlobal(colorTheme)} />
 }
@@ -23,15 +26,15 @@ const sGlobal = (colorTheme: ColorThemeType) => css`
 		background-color: ${colorTheme.textAccent};
 	}
 
-	@media screen and (max-width: ${BP_MD}) {
+	/* @media screen and (max-width: 900px) {
 		* {
 			font-size: 60%;
 		}
-	}
+	} */
 
 	@media screen and (max-width: ${BP_XS}) {
 		* {
-			font-size: 40%;
+			font-size: 80%;
 		}
 	}
 `

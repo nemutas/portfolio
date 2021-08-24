@@ -69,6 +69,9 @@ export const ApplicationCard: VFC<{ app: ApplicationType }> = ({ app }) => {
 	)
 }
 
+// ==============================================
+// styles
+
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		expandIcon: {
@@ -96,7 +99,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const sCardContainer = (borderColor: string) => css`
 	position: relative;
-	width: 640px;
+	min-width: 300px;
+	max-width: 640px;
 	height: 360px;
 	border-radius: 20px 0 20px 0;
 	border: 3px solid ${borderColor};

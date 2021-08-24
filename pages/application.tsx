@@ -33,7 +33,9 @@ const sContainer = css`
 `
 
 const sListContainer = css`
-	display: flex;
+	/* display: flex; */
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 640px));
 	flex-wrap: wrap;
 	grid-gap: 30px;
 `
