@@ -4,8 +4,9 @@ export const BP_MD = '1280px'
 export const BP_SM = '960px'
 export const BP_SS = '780px'
 export const BP_XS = '600px'
+export const BP_XXS = '480px'
 
-type BreakPointType = typeof BP_MD | typeof BP_SM | typeof BP_SS | typeof BP_XS
+type BreakPointType = typeof BP_MD | typeof BP_SM | typeof BP_SS | typeof BP_XS | typeof BP_XXS
 
 export const sDisplayNone_Width = (breakpoint: BreakPointType) => css`
 	@media (max-width: ${breakpoint}) {

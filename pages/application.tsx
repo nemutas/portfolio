@@ -5,6 +5,7 @@ import { PageLayout } from '../components/PageLayout';
 import { VerticalScrollLayout } from '../components/VerticalScrollLayout';
 import { applications } from '../datas/application';
 import { pageSummary } from '../datas/pageSummary';
+import { BP_XXS } from '../styles/breakPointStyles';
 
 const Application: VFC = () => {
 	const summary = pageSummary.application
@@ -30,6 +31,10 @@ const sContainer = css`
 	width: 100%;
 	height: 100%;
 	padding: 30px;
+
+	@media screen and (max-width: ${BP_XXS}) {
+		padding: 10px;
+	}
 `
 
 const sListContainer = css`

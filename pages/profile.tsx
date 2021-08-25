@@ -7,6 +7,7 @@ import { Philosophy } from '../components/profile/Philosophy';
 import { Skill } from '../components/profile/Skill';
 import { VerticalScrollLayout } from '../components/VerticalScrollLayout';
 import { pageSummary } from '../datas/pageSummary';
+import { BP_XXS } from '../styles/breakPointStyles';
 
 const Profile: VFC = () => {
 	const [activeNav, setActiveNav] = useState<'Career' | 'Skill' | 'Philosophy'>('Career')
@@ -75,6 +76,10 @@ const sContainer = css`
 	grid-template-rows: 120px 1fr;
 	width: 100%;
 	padding: 0 30px;
+
+	@media screen and (max-width: ${BP_XXS}) {
+		padding: 0 10px;
+	}
 `
 
 const sNavContainer = css`

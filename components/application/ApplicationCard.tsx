@@ -2,12 +2,12 @@ import Image from 'next/image';
 import React, { useState, VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/css';
-import { Avatar, createStyles, IconButton, makeStyles, Theme } from '@material-ui/core';
+import { createStyles, IconButton, makeStyles, Theme } from '@material-ui/core';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import GitHubIcon from '@material-ui/icons/GitHub';
 import { ApplicationType } from '../../datas/application';
 import { colorThemeState } from '../../lib/store';
+import { GitHubButton, QiitaButton } from '../atoms/CustomIconButton';
 import { CustomText } from '../atoms/CustomText';
 import { LinkLayout } from '../atoms/LinkLayout';
 
@@ -41,23 +41,9 @@ export const ApplicationCard: VFC<{ app: ApplicationType }> = ({ app }) => {
 					</IconButton>
 				</div>
 				{/* GitHub Button */}
-				<LinkLayout href={app.gitUrl} isOuterLink>
-					<IconButton className={classes.iconButton} aria-label="github">
-						<GitHubIcon className={classes.githubIcon} />
-					</IconButton>
-				</LinkLayout>
+				<GitHubButton href={app.gitUrl} />
 				{/* Qiita Button */}
-				{app.qiitaUrl ? (
-					<LinkLayout href={app.qiitaUrl} isOuterLink>
-						<IconButton className={classes.iconButton} aria-label="qiita">
-							<Avatar className={classes.qiitaIcon} src="/assets/icons/qiita.png" />
-						</IconButton>
-					</LinkLayout>
-				) : (
-					<IconButton className={classes.iconButton} aria-label="qiita" disabled>
-						<Avatar className={classes.qiitaDisableIcon} src="/assets/icons/qiita.png" />
-					</IconButton>
-				)}
+				<QiitaButton href={app.qiitaUrl} disabled={!app.qiitaUrl} />
 				{/* Description */}
 				{expandMore && (
 					<div className={sDescription}>
@@ -76,18 +62,6 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		expandIcon: {
 			color: '#F2F2F2'
-		},
-		githubIcon: {
-			color: '#F2F2F2'
-		},
-		qiitaIcon: {
-			width: theme.spacing(3),
-			height: theme.spacing(3)
-		},
-		qiitaDisableIcon: {
-			width: theme.spacing(3),
-			height: theme.spacing(3),
-			filter: 'grayscale(100%)'
 		},
 		iconButton: {
 			'&:hover': {

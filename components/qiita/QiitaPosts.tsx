@@ -8,7 +8,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import { ColorThemeType } from '../../datas/colorTheme';
 import { colorThemeState } from '../../lib/store';
 import { QiitaPostType, QiitaTagsType } from '../../lib/types';
-import { BP_MD, sDisplayNone_Width_MD } from '../../styles/breakPointStyles';
+import { BP_MD, BP_XS, sDisplayNone_Width_MD } from '../../styles/breakPointStyles';
 import { ContentsSubText, CustomText } from '../atoms/CustomText';
 import { SimpleDivider } from '../atoms/SimpleDivider';
 import { DesignListItem3 } from '../molecules/DesignListItem3';
@@ -63,6 +63,8 @@ export const QiitaPosts: VFC<PropsType> = ({ posts, tags }) => {
 		</div>
 	)
 }
+
+// ==============================================
 
 const QiitaPostLink: VFC<{ post: QiitaPostType }> = ({ post }) => {
 	return (
@@ -210,6 +212,12 @@ const sIconContainer = (colorTheme: ColorThemeType) => css`
 	border-radius: 9999px;
 	border: 2px solid ${colorTheme.textAccent};
 	color: ${colorTheme.textAccent};
+
+	@media screen and (max-width: ${BP_XS}) {
+		height: 60px;
+		width: 60px;
+		padding-top: 10px;
+	}
 `
 
 const sHoveredIconContainer = (colorTheme: ColorThemeType) => css`

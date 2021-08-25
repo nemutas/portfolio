@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { css, Global } from '@emotion/react';
 import { colorThemes, ColorThemeType } from '../datas/colorTheme';
 import { colorThemeState, getColorThemeFromLocalStorage } from '../lib/store';
-import { BP_XS } from './breakPointStyles';
+import { BP_XS, BP_XXS } from './breakPointStyles';
 
 export const GlobalStyles: VFC = () => {
 	const [colorTheme, setColorTheme] = useRecoilState(colorThemeState)
@@ -35,6 +35,12 @@ const sGlobal = (colorTheme: ColorThemeType) => css`
 	@media screen and (max-width: ${BP_XS}) {
 		* {
 			font-size: 80%;
+		}
+	}
+
+	@media screen and (max-width: ${BP_XXS}) {
+		* {
+			font-size: 60%;
 		}
 	}
 `

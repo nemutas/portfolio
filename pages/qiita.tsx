@@ -6,6 +6,7 @@ import { QiitaPosts } from '../components/qiita/QiitaPosts';
 import { pageSummary } from '../datas/pageSummary';
 import { fetchQiitaPosts } from '../lib/fetch';
 import { QiitaPostType, QiitaTagsType } from '../lib/types';
+import { BP_XXS } from '../styles/breakPointStyles';
 
 const Qiita: VFC<{ posts: QiitaPostType[]; tags: QiitaTagsType }> = ({ posts, tags }) => {
 	const summary = pageSummary.qiita
@@ -36,4 +37,8 @@ const sContainer = css`
 	width: 100%;
 	height: 100%;
 	padding: 30px;
+
+	@media screen and (max-width: ${BP_XXS}) {
+		padding: 10px;
+	}
 `
