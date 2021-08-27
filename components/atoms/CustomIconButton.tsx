@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React, { useState, VFC } from 'react';
+import { ImExit } from 'react-icons/im';
 import { useRecoilValue } from 'recoil';
 import { css, cx } from '@emotion/css';
 import { Avatar, createStyles, IconButton, makeStyles, Theme } from '@material-ui/core';
@@ -163,6 +164,26 @@ export const ColorSelectorButton: VFC<ColorSelectorButtonPropsType> = props => {
 }
 
 // ==============================================
+
+type ToHomeButtonPropsType = {
+	sizePx?: number
+}
+
+export const ToHomeButton: VFC<ToHomeButtonPropsType> = props => {
+	const { sizePx = 20 } = props
+	const colorTheme = useRecoilValue(colorThemeState)
+	const classes = useStyles({ size: sizePx, colorTheme })
+
+	return (
+		<LinkLayout href="/">
+			<IconButton className={classes.iconButton} aria-label="home">
+				<ImExit className={sToHome(sizePx)} />
+			</IconButton>
+		</LinkLayout>
+	)
+}
+
+// ==============================================
 // styles
 
 const useStyles = makeStyles<Theme, { size: number; colorTheme: ColorThemeType }>((theme: Theme) =>
@@ -223,4 +244,10 @@ const sViewContainer = css`
 	align-items: center;
 	border-radius: 10px;
 	background-color: rgba(0, 0, 0, 0.7);
+`
+
+const sToHome = (size: number) => css`
+	width: ${size}px;
+	height: ${size}px;
+	transform: scale(-1, 1);
 `

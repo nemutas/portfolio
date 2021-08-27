@@ -18,7 +18,7 @@ export const Layout: VFC<PropsType> = props => {
 	return (
 		<div>
 			<Head>
-				<title>{title}</title>
+				<title>{`Portfolio｜${title}`}</title>
 			</Head>
 
 			<main className={sContainer(colorTheme)}>

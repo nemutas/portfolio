@@ -5,7 +5,10 @@ import { createStyles, IconButton, makeStyles, Theme } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { ColorThemeType } from '../datas/colorTheme';
 import { colorThemeState } from '../lib/store';
-import { ColorSelectorButton, GitHubButton, QiitaButton, QRButton } from './atoms/CustomIconButton';
+import {
+	ColorSelectorButton, GitHubButton, QiitaButton, QRButton, ToHomeButton
+} from './atoms/CustomIconButton';
+import { LinkItem } from './atoms/LinkItem';
 import { SimpleDivider } from './atoms/SimpleDivider';
 import { GlobalNavigator } from './GlobalNavigator';
 
@@ -24,6 +27,9 @@ export const ModalNavigator: VFC<PropsType> = ({ setOpenModalNav }) => {
 					<IconButton aria-label="close" onClick={() => setOpenModalNav(false)}>
 						<CloseIcon className={classes.close} />
 					</IconButton>
+				</div>
+				<div className={sToHomeButton}>
+					<ToHomeButton sizePx={30} />
 				</div>
 				{/* row 1 */}
 				<div className={sContentsContainer}>
@@ -47,7 +53,7 @@ const useStyles = makeStyles<Theme, { colorTheme: ColorThemeType }>((theme: Them
 	createStyles({
 		close: {
 			color: ({ colorTheme }) => colorTheme.textAccent,
-			fontSize: '2rem'
+			fontSize: '30px'
 		}
 	})
 )
@@ -76,6 +82,12 @@ const sCloseButton = css`
 	position: absolute;
 	top: 0;
 	right: 0;
+`
+
+const sToHomeButton = css`
+	position: absolute;
+	top: 0;
+	left: 0;
 `
 
 const sContentsContainer = css`

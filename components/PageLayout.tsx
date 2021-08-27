@@ -10,6 +10,7 @@ import { BP_SM, sDisplayNone_Width_SM } from '../styles/breakPointStyles';
 import { Footer } from './footer/Footer';
 import { FrameLines } from './FrameLines';
 import { GlobalNavigator } from './GlobalNavigator';
+import { Logo } from './Logo';
 import { ModalNavigator } from './ModalNavigator';
 import { PageMainLayout } from './PageMainLayout';
 
@@ -28,12 +29,14 @@ export const PageLayout: VFC<PropsType> = props => {
 	return (
 		<div>
 			<Head>
-				<title>{title}</title>
+				<title>{`Portfolio｜${title}`}</title>
 			</Head>
 
 			<div className={sContainer(colorTheme)}>
 				<header className={sHeaderContainer}>
-					<div>Logo</div>
+					<div>
+						<Logo />
+					</div>
 					<div className={sNavigator}>
 						<GlobalNavigator />
 					</div>
@@ -98,7 +101,6 @@ const sContainer = (theme: ColorThemeType) => css`
 const sHeaderContainer = css`
 	width: 300px;
 	display: grid;
-	flex-direction: row;
 	grid-template-rows: 100px 1fr;
 
 	${sDisplayNone_Width_SM}

@@ -8,7 +8,7 @@ body {
 		Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
 	font-family: 'Klee One', cursive;
 	height: 100%;
-	overflow: hidden;
+	/* overflow: hidden; */
 }
 
 a {
