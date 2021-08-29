@@ -1,6 +1,8 @@
 # About
 
-ポートフォリオサイトです。
+ポートフォリオサイトです。<br>
+
+https://nemutas-portfolio.vercel.app/
 
 # Technology
 
@@ -8,4 +10,4 @@
 - TypeScript
 - Material UI
 - Recoil
-- SSG + SWR
+- SSG
