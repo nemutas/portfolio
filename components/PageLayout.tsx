@@ -30,6 +30,8 @@ export const PageLayout: VFC<PropsType> = props => {
 		<div>
 			<Head>
 				<title>{`Portfolio｜${title}`}</title>
+				<meta name="description" content="井上啓道（Inoue Hiromichi）のポートフォリオサイト" />
+				<link rel="icon" href="/assets/icons/feather.png" />
 			</Head>
 
 			<div className={sContainer(colorTheme)}>

@@ -7,8 +7,8 @@ export const siteAbouts: SiteAboutsType[] = [
 	{
 		title: 'フロントエンドフレームワーク',
 		description: `このサイトは、Next.jsで作成されています。
-      Next.jsは、SSG（静的サイト生成）に対応しているため、SEOに有利に働きます。そしてビルド時にAPIデータを表示するページもPre-fetch、Pre-renderingするため、クライアントがアクセスしたときに高速でページを表示されます。
-      また、Reactのラッパーフレームワークなので、HTML要素をパーツごとにコンポーネント化できるので、効率のよい開発を行うことができます。`
+      Next.jsは、SSG（静的サイト生成）に対応しているため、SEOに有利に働きます。また、ビルド時にAPIデータを表示するページもPre-fetch、Pre-renderingするため、サイトにアクセスしたときに高速でページが表示されます。
+      Reactのラッパーフレームワークなので、HTML要素をパーツごとにコンポーネント化できます。これにより効率のよい開発を行うことができます。`
 	},
 	{
 		title: '使用言語',
@@ -18,25 +18,25 @@ export const siteAbouts: SiteAboutsType[] = [
 	},
 	{
 		title: 'スタイリング',
-		description: `CSS in JS（Emotion/css）を使用しています。
+		description: `CSS in JSを使用しています。
       コンポーネントファイル（.tsx）に、そのコンポーネントに関連するCSSを書くことで、ファイルの分散を防ぎソースコードの見通しを良くしています。
-      CSS in JSに、Emotion/cssパッケージを使用することで、元のCSSの構文をそのまま使えるようにしています。CSSの補完が効くのも利点です。`
+      CSS in JSとして、Emotionパッケージを使用しています。Emotionを利用すると、CSSの構文がそのまま使え、コンポーネントファイル内でもCSS構文の補完が利きます。`
 	},
 	{
 		title: 'UI',
-		description: `Material UIを使用しています。
-      このサイトは、独自でデザインしているためフォントやボタン程度の使用になっています。`
+		description: `コンポーネントのUIには一部、Material UIを使用しています。
+			Material UIを利用すると、特に、リッチなアニメーション効果を持つコンポーネントを簡単に扱うことができます。`
 	},
 	{
-		title: '状態管理',
-		description: `Global Stateの管理には、Recoilを使用しています。
-      Recoilは、Reactの開発元のFacebook社が開発した状態管理ライブラリで、状態の変更に伴って効率よくコンポーネントを再レンダリングしてくれます。
-      また、使用感でもRedux tool kitよりも簡単に扱うことができます。
-      このサイトでは、Global Navigationのアクティブ状態（色）の管理、テーマカラーの管理に使用しています。`
+		title: 'テーマカラー',
+		description: `このサイトは、テーマカラーを変更することができます。その状態管理にはRecoil（Global State）を使用しています。
+      Recoilは、Reactの開発元のFacebook社が開発した状態管理ライブラリです。
+			状態の変更に伴って効率よくコンポーネントを再レンダリングしたり、使用感についてもRedux tool kitよりも簡単に扱うことができます。`
 	},
 	{
-		title: 'API',
+		title: 'Qiita ページ',
 		description: `Qiitaのページでは、Qiita APIを使用して記事を取得しています。
-      Qiita APIは、1時間に1000回のリクエストしかできず、記事自体の投稿の頻度も高いわけではないので、SSGを利用してこのサイトのビルド時に記事を取得するようにしています。`
+			記事の取得はサイトのビルド時にSSGでPre-fetchして行っているため、クライアントからサイトアクセスがあるたびにAPIリクエストが発生することはないです。このため高速でページが表示されます。
+      また、Qiita APIは1時間に1000回のリクエスト制限があり、取得する記事自体の更新頻度も高いわけではないです。このためSSGとの相性が良いです。`
 	}
 ]

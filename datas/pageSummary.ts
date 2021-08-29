@@ -14,7 +14,7 @@ type PageType = {
 export const pageSummary: PageType = {
 	profile: {
 		title: 'Profile',
-		description: `Name：井上 啓道 Inoue Hiromichi
+		description: `Name：井上 啓道（Inoue Hiromichi）
 			Birthday：1991/8/5
 			Age：30`
 	},
@@ -33,6 +33,6 @@ export const pageSummary: PageType = {
 	},
 	site: {
 		title: 'Site Abouts',
-		description: `このサイトがどのような技術で作成されているか紹介します。`
+		description: `このサイトで使用している技術を紹介しています。`
 	}
 }
